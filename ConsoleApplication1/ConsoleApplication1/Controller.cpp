@@ -7,9 +7,8 @@ void Controller::run()
 {
 	sf::RenderWindow window(sf::VideoMode(801, 601), "SFML works!");
 	
-	sf::Vector2f size(10, 10);
+	sf::Vector2f size(15, 15);
 	Board board(size,window);
-
 	
 
 	while (window.isOpen())
@@ -23,7 +22,8 @@ void Controller::run()
 		}
 		
 		window.clear();
-		board.draw_rects(window, (size));
+		board.draw(window, (size));
+		
 		window.display();
 	}
 }
