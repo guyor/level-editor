@@ -9,8 +9,9 @@ public:
 	{
 		sf::Texture pTexture;
 		sf::RectangleShape rect(sf::Vector2f(801 / boardsize.y, 601 / boardsize.x));
-		pTexture.loadFromFile("demon.ico");
+		pTexture.loadFromFile("demon.png");
 		rect.setTexture(&pTexture);
+		rect.setPosition(0, 601 / boardsize.x);
 		window.draw(rect);
 	}
 

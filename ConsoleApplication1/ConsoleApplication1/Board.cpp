@@ -58,6 +58,8 @@ void Board::draw_icons(sf::RenderWindow & window, sf::Vector2f boardsize)
 	icons[5] = new Erase;
 	icons[6] = new Clear;
 
-	icons[0]->draw(window,boardsize);
+	for (size_t i = 0; i < 7; i++)
+		icons[i]->draw(window, boardsize);
+
 }
 
