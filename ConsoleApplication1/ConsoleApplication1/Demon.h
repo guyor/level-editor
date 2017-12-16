@@ -3,6 +3,15 @@
 
 class Demon : public Icons
 {
+public:
 	Demon() {};
+	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
+	{
+		sf::Texture pTexture;
+		sf::RectangleShape rect(sf::Vector2f(801 / boardsize.y, 601 / boardsize.x));
+		pTexture.loadFromFile("demon.ico");
+		rect.setTexture(&pTexture);
+		window.draw(rect);
+	}
 
 };

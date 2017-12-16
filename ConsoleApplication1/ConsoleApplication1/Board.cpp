@@ -7,8 +7,8 @@ Board::Board(sf::Vector2f boardsize, sf::RenderWindow&  window)
 {
 	draw(window, boardsize);
 	
-	Icons * icons[7];
-	icons[0] = new Pacman ;
+
+	
 
 }
 
@@ -35,6 +35,7 @@ void Board::draw(sf::RenderWindow & window, sf::Vector2f boardsize)
 {
 	draw_backround(window);
 	draw_rects(window, boardsize);
+	draw_icons(window,boardsize);
 }
 
 void Board::draw_backround(sf::RenderWindow & window)
@@ -44,5 +45,19 @@ void Board::draw_backround(sf::RenderWindow & window)
 	pTexture.loadFromFile("photo.jpg");
 	background.setTexture(pTexture);
 	window.draw(background);
+}
+
+void Board::draw_icons(sf::RenderWindow & window, sf::Vector2f boardsize)
+{
+	Icons * icons[7];
+	icons[0] = new Pacman;
+	icons[1] = new Demon;
+	icons[2] = new Cookie;
+	icons[3] = new Wall;
+	icons[4] = new Save;
+	icons[5] = new Erase;
+	icons[6] = new Clear;
+
+	icons[0]->draw(window,boardsize);
 }
 

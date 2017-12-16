@@ -7,6 +7,7 @@ class Icons
 public:
 	Icons() {};
 	Icons(sf::RenderWindow & window);
+	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize) {}
 	~Icons();
 
 private:
