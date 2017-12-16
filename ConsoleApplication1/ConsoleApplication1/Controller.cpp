@@ -5,16 +5,15 @@
 
 void Controller::run()
 {
-	Board board(read_data());
+	sf::RenderWindow window(sf::VideoMode(801, 601), "SFML works!");
+	
+	sf::Vector2f size(10, 10);
+	Board board(size,window);
 
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-
-	sf::RectangleShape rect(sf::Vector2f(1,100));
-	rect.setFillColor(sf::Color::Red);
+	
 
 	while (window.isOpen())
 	{
-
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -24,7 +23,7 @@ void Controller::run()
 		}
 		
 		window.clear();
-		window.draw(rect);
+		board.draw_rects(window, (size));
 		window.display();
 	}
 }
