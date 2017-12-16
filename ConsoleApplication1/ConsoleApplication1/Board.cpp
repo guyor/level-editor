@@ -7,6 +7,9 @@ Board::Board(sf::Vector2f boardsize, sf::RenderWindow&  window)
 {
 	draw(window, boardsize);
 	
+	Icons * icons[7];
+	icons[0] = new Pacman ;
+
 }
 
 void Board::draw_rects(sf::RenderWindow & window, sf::Vector2f boardsize)

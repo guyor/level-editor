@@ -10,6 +10,7 @@ void Controller::run()
 	sf::Vector2f size(15, 15);
 	Board board(size,window);
 	
+	
 
 	while (window.isOpen())
 	{

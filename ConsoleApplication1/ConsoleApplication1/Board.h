@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-
+#include "Icons.h"
+#include <vector>
+#include "Pacman.h"
 
 class Board
 {
