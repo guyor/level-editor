@@ -12,6 +12,9 @@
 #include "Clear.h"
 #include <fstream>
 #include <string>
+#include "Blue.h"
+#include "Red.h"
+#include "Green.h"
 
 using std::ifstream;
 using std::vector;
@@ -24,15 +27,19 @@ public:
 	Board() {};
 	~Board() {};
 
-	Board(sf::Vector2f boardsize, sf::RenderWindow & window);
-	void draw_rects(sf::RenderWindow & window, sf::Vector2f boardsize);
-	void draw(sf::RenderWindow & window, sf::Vector2f boardsize);
+	Board(const sf::Vector2f boardsize, sf::RenderWindow & window);
+	void draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize);
+	void draw(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void draw_backround(sf::RenderWindow & window);
-	void draw_icons(sf::RenderWindow & window, sf::Vector2f boardsize);
+	void draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize);
+	void set_mouse(const sf::Vector2f & new_mouse) { m_mouse = new_mouse; };
+	void draw_back_rect(sf::RenderWindow & window, sf::Vector2f position, sf::Vector2f boardsize);
+	sf::Vector2f get_mouse() { return m_mouse; };
 
 private:
 	vector<string> m_Matrix;
 	void Board::Open_File(ifstream & input);
-	void read_board(sf::Vector2f boardsize);
+	void read_board(const sf::Vector2f boardsize);
+	sf::Vector2f m_mouse;
 };
 

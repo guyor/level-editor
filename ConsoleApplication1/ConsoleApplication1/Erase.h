@@ -11,7 +11,7 @@ public:
 		sf::RectangleShape rect(sf::Vector2f(801 / boardsize.y, 601 / boardsize.x));
 		pTexture.loadFromFile("erase.png");
 		rect.setTexture(&pTexture);
-		rect.setPosition(0, 5 * (601 / boardsize.x));
+		rect.setPosition(5 * (801 / boardsize.y), 0);
 		window.draw(rect);
 	}
 

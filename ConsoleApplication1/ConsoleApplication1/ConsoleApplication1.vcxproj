@@ -144,14 +144,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Blue.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Clear.h" />
     <ClInclude Include="Cookie.h" />
     <ClInclude Include="Demon.h" />
     <ClInclude Include="Erase.h" />
+    <ClInclude Include="Green.h" />
     <ClInclude Include="Icons.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Pacman.h" />
+    <ClInclude Include="Red.h" />
     <ClInclude Include="Save.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>

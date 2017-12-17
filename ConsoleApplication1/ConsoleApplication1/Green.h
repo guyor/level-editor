@@ -1,17 +1,17 @@
 #pragma once
 #include "Icons.h"
 
-class Save : public Icons
+class Green : public Icons
 {
 public:
-	Save() {};
+	Green() {};
 	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
 	{
 		sf::Texture pTexture;
 		sf::RectangleShape rect(sf::Vector2f(801 / boardsize.y, 601 / boardsize.x));
-		pTexture.loadFromFile("save.png");
+		pTexture.loadFromFile("green.png");
 		rect.setTexture(&pTexture);
-		rect.setPosition(4 * (801 / boardsize.y), 0);
+		rect.setPosition(8 * (801 / boardsize.y), 0);
 		window.draw(rect);
 	}
 
