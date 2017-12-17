@@ -3,8 +3,11 @@
 
 
 
+
 Board::Board(sf::Vector2f boardsize, sf::RenderWindow&  window)
 {
+	read_board(boardsize);
+
 	draw(window, boardsize);
 	
 
@@ -63,3 +66,28 @@ void Board::draw_icons(sf::RenderWindow & window, sf::Vector2f boardsize)
 
 }
 
+// open the .txt file to read from 
+void Board::Open_File(ifstream & input)
+{
+	input.open("board.txt");
+	if (!input.is_open())
+	{
+		cerr << "cannot open file";
+		exit(EXIT_FAILURE);
+	}
+}
+
+void Board::read_board(sf::Vector2f boardsize)
+{
+	ifstream input;
+	Open_File(input);
+
+	std::string line;
+	getline(input, line);
+
+	for (int i = 0; i < boardsize.x; i++)
+	{
+		getline(input, line);
+		m_Matrix.push_back(line);
+	}
+}

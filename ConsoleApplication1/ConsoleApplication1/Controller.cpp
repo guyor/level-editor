@@ -8,6 +8,7 @@ void Controller::run()
 	sf::RenderWindow window(sf::VideoMode(801, 601), "SFML works!");
 	
 	sf::Vector2f size(15, 15);
+
 	Board board(size,window);
 	
 	
