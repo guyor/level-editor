@@ -32,14 +32,14 @@ public:
 	void draw(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void draw_backround(sf::RenderWindow & window);
 	void draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize);
-	void set_mouse(const sf::Vector2f & new_mouse) { m_mouse = new_mouse; };
-	void draw_back_rect(sf::RenderWindow & window, sf::Vector2f position, sf::Vector2f boardsize);
-	sf::Vector2f get_mouse() { return m_mouse; };
+	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; };
+	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize);
+	sf::Vector2i get_mouse() { return m_mouse; };
 
 private:
 	vector<string> m_Matrix;
 	void Board::Open_File(ifstream & input);
 	void read_board(const sf::Vector2f boardsize);
-	sf::Vector2f m_mouse;
+	sf::Vector2i m_mouse;
 };
 

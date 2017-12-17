@@ -7,7 +7,7 @@ void Controller::run()
 {
 	sf::RenderWindow window(sf::VideoMode(801, 601), "SFML works!");
 	
-	sf::Vector2f size(10, 10);
+	sf::Vector2f size(30, 30);
 	size.x++;
 	Board board(size,window);
 	
@@ -23,11 +23,11 @@ void Controller::run()
 					window.close();
 					break;
 			case sf::Event::MouseMoved :
-				board.set_mouse(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+				board.set_mouse(sf::Vector2i(event.mouseButton.x,event.mouseButton.y));
 				board.draw_back_rect(window, board.get_mouse(), size);
 				break;
 			case sf::Event::MouseButtonReleased:
-				board.set_mouse(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+				board.set_mouse(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
 				break;
 
 			}

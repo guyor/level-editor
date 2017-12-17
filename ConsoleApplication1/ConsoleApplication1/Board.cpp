@@ -69,11 +69,15 @@ void Board::draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize)
 	
 }
 
-void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2f position, sf::Vector2f boardsize)
+void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize)
 {
+	float y = (position.y - (position.y % (int)(601 / boardsize.y)));
+	float x = (position.x - (position.x % (int)(801 / boardsize.x)));
+
+	sf::Vector2f pos(x, y);
 	sf::RectangleShape rect(sf::Vector2f(801 / boardsize.y, 601 / boardsize.x));
-	rect.setPosition(position);
-	rect.setFillColor(sf::Color::Transparent);
+	rect.setPosition(pos);
+	rect.setFillColor(sf::Color::Red);
 	window.draw(rect);
 
 }
