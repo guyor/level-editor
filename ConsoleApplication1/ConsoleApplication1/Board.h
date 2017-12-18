@@ -21,6 +21,7 @@ using std::vector;
 using std::string;
 using std::cerr;
 
+
 class Board
 {
 public:
@@ -33,8 +34,9 @@ public:
 	void draw_backround(sf::RenderWindow & window);
 	void draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; };
-	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize);
+	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect);
 	sf::Vector2i get_mouse() { return m_mouse; };
+	void mouse_button_released(sf::Event event);
 
 private:
 	vector<string> m_Matrix;

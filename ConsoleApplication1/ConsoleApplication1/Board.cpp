@@ -17,28 +17,32 @@ Board::Board(const sf::Vector2f boardsize, sf::RenderWindow&  window)
 
 void Board::draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
-	for (size_t i = 0; i < boardsize.y + 1 ; i++) // columns
+	float y = 60;
+	sf::RectangleShape col(sf::Vector2f(1, 540));
+	sf::RectangleShape row(sf::Vector2f(800, 1));
+	for (size_t i = 0; i < boardsize.y + 1; i++) // columns
 	{
-		sf::RectangleShape rect(sf::Vector2f(1, 600));
-		rect.setFillColor(sf::Color::Red);
-		rect.setPosition(i * (800/boardsize.y), 0);
-		window.draw(rect);
+		col.setFillColor(sf::Color::White);
+		col.setPosition(i * (800/boardsize.y), 60);
+		window.draw(col);
 		
 	}
-	for (size_t i = 0; i < boardsize.x + 1 ; i++) //rows
+
+	for (size_t i = 1; i < boardsize.x  + 2; i++) //rows
 	{
-		sf::RectangleShape rect(sf::Vector2f(800, 1));
-		rect.setFillColor(sf::Color::Red);
-		rect.setPosition(0 , i * 600/(boardsize.x));
-		window.draw(rect);
+		row.setFillColor(sf::Color::White);
+		row.setPosition(0 , y);
+		y += ((540) / (boardsize.x));
+		window.draw(row);
 	}
 }
 
 void Board::draw(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
-	draw_backround(window);
+	//draw_backround(window);
 	draw_rects(window, boardsize);
 	draw_icons(window,boardsize);
+	
 }
 
 void Board::draw_backround(sf::RenderWindow & window)
@@ -69,17 +73,20 @@ void Board::draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize)
 	
 }
 
-void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize)
+void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect)
 {
-	float y = (position.y - (position.y % (int)(601 / boardsize.y)));
-	float x = (position.x - (position.x % (int)(801 / boardsize.x)));
-
-	sf::Vector2f pos(x, y);
-	sf::RectangleShape rect(sf::Vector2f(801 / boardsize.y, 601 / boardsize.x));
+	int y = (position.y - (position.y % (int)(540 / boardsize.y)));
+	int x = (position.x - (position.x % (int)(800 / (boardsize.x - 1))));
+	sf::Vector2f pos((float)x, (float)y);
 	rect.setPosition(pos);
-	rect.setFillColor(sf::Color::Red);
+	rect.setFillColor(sf::Color(255,255,255,100));
 	window.draw(rect);
 
+}
+
+void Board::mouse_button_released(sf::Event event)
+{
+	
 }
 
 // open the .txt file to read from 
