@@ -21,8 +21,6 @@ using std::vector;
 using std::string;
 using std::cerr;
 
-const unsigned int P_SIZE = 64;
-
 class Board
 {
 public:

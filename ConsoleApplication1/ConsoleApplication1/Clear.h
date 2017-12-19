@@ -8,12 +8,8 @@ public:
 	Clear() : position(6 * 80, 0) {};
 	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
 	{
-		sf::Texture pTexture;
-		sf::RectangleShape rect(sf::Vector2f(80, 60));
-		pTexture.loadFromFile("clear.png");
-		rect.setTexture(&pTexture);
-		rect.setPosition(position);
-		window.draw(rect);
+		m_sprite[CLEAR].setPosition(CLEAR * P_SIZE, 0);
+		window.draw(m_sprite[CLEAR]);
 	}
 
 private:

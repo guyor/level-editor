@@ -40,7 +40,7 @@ void Board::draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize
 {
 	//draw_backround(window);
 	draw_rects(window, boardsize);
-	//draw_icons(window,boardsize);
+	draw_icons(window,boardsize);
 	
 }
 

@@ -5,12 +5,12 @@
 enum Toolbar_t {PACMAN,DEMON,COOKIE,WALL,SAVE,ERASE,CLEAR,RED,BLUE,GREEN};
 
 const int NUM_OF_ICONS = 10;
+const unsigned int P_SIZE = 64;
 
 class Toolbar
 {
 public:
 	Toolbar() ;
-	Toolbar(sf::RenderWindow & window);
 	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize) {}
 	~Toolbar();
 
