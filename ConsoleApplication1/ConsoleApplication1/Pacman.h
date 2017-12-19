@@ -1,19 +1,22 @@
 #pragma once
 
 #include "Toolbar.h"
+#include "Icon.h"
+
 #include <iostream>
 
-class Pacman : public Toolbar
+class Pacman : public Icon
 {
 public:
-
-	Pacman() : position(0,0) {};
-	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
+	Pacman(Toolbar_t color) : m_color(color) {};
+	
+	void draw(sf::RenderWindow window,sf::Vector2f pos, sf::Sprite sprites[])
 	{
-		window.draw(m_sprite[PACMAN]);
-	}
+		sprites[PACMAN].setPosition(pos);
+		window.draw(sprites[PACMAN]);
+	};
+	
 
 private:
-	sf::Vector2f position;
-
+	Toolbar_t m_color;
 };

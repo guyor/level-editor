@@ -5,11 +5,9 @@
 
 
 Board::Board(const sf::Vector2f size, sf::RenderWindow&  window) :
-	m_boardsize(size)
+	m_boardsize(size), m_grid((int)size.x, vector < Icon * > ((int)size.y))
 {
-	// resize vector size
 	read_board();
-
 	draw_new_page(window);
 
 
@@ -67,46 +65,80 @@ void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf:
 
 }
 
-void Board::mouse_button_released(sf::Event event)
+void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 {
 	int x = event.mouseButton.x;
 	int y = event.mouseButton.y;
 	
 	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
+	sf::Vector2i i_pos((int)pos.x,(int)pos.y);
 
 	if (pos.x == 0) // means toolbar button was pressed
 	{
-		Toolbar_t icon = m_toolbar.get_icon(pos);
+		Toolbar_t icon = m_toolbar.get_icon_name(pos);
+		draw_toolbar_rect(window,pos);
+		
 		switch (icon)
 		{
 		case PACMAN:
-			
+			m_new_icon._shape = PACMAN;
 			break;
 		case DEMON:
+			m_new_icon._shape = DEMON;
 			break;
 		case COOKIE:
+			m_new_icon._shape = COOKIE;
 			break;
 		case WALL:
+			m_new_icon._shape = WALL;
 			break;
 		case SAVE:
+			// write grid into .txt file
 			break;
 		case ERASE:
+			// put a null and delte
 			break;
 		case CLEAR:
+			// erase all icons and save
 			break;
 		case RED:
+			m_new_icon._color = RED;
 			break;
 		case GREEN:
+			m_new_icon._color = GREEN;
 			break;
 		case BLUE:
+			m_new_icon._color = BLUE;
 			break;
 		}
 	}
 	else // means a cell in the grid was pressed
 	{
-		//add icon that i have to the data structure
+		switch (m_new_icon._shape)
+		{
+		case PACMAN:
+			m_grid[i_pos.x][i_pos.y] = new Pacman(m_new_icon._color);
+			break;
+		case DEMON:
+			m_grid[i_pos.x][i_pos.y] = new Demon(m_new_icon._color);
+			break;
+		case COOKIE:
+			m_grid[i_pos.x][i_pos.y] = new Cookie(m_new_icon._color);
+			break;
+		case WALL:
+			m_grid[i_pos.x][i_pos.y] = new Wall(m_new_icon._color);
+			break;
+		}
 	}
 	
+}
+
+void Board::draw_toolbar_rect(sf::RenderWindow & window,sf::Vector2f pos)
+{
+	sf::RectangleShape rect;
+	rect.setPosition(pos);
+	rect.getFillColor(sf::Color::Blue);
+	window.draw(rect);
 }
 
 // open the .txt file to read from 

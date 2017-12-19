@@ -36,7 +36,7 @@ void Toolbar::draw_toolbar(sf::RenderWindow & window)
 	
 }
 
-Toolbar_t Toolbar::get_icon(sf::Vector2f vec)
+Toolbar_t Toolbar::get_icon_name(sf::Vector2f vec)
 {
 	for (size_t i = 0; i < NUM_OF_ICONS ; i++)
 	{
@@ -45,4 +45,6 @@ Toolbar_t Toolbar::get_icon(sf::Vector2f vec)
 	}
 	return (Toolbar_t)0;
 }
+
+
 

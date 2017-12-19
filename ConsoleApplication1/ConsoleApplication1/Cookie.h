@@ -1,14 +1,18 @@
 #pragma once
 #include "Toolbar.h"
 
-class Cookie : public Toolbar
+class Cookie : public Icon
 {
 public:
-	Cookie() {};
-	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
-	{
-		m_sprite[COOKIE].setPosition(COOKIE * P_SIZE, 0);
-		window.draw(m_sprite[COOKIE]);
-	}
+	Cookie(Toolbar_t color) : m_color(color) {};
 
+	void draw(sf::RenderWindow window, sf::Vector2f pos, sf::Sprite sprites[])
+	{
+		sprites[COOKIE].setPosition(pos);
+		window.draw(sprites[COOKIE]);
+	};
+
+
+private:
+	Toolbar_t m_color;
 };

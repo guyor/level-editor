@@ -17,10 +17,11 @@ public:
 	Toolbar() ;
 	~Toolbar();
 	
-	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize) {}
+	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize) {}// delete
 
 	void draw_toolbar(sf::RenderWindow & window);
-	Toolbar_t get_icon(sf::Vector2f vec);
+	Toolbar_t get_icon_name(sf::Vector2f vec);
+	sf::Sprite get_icon_sprite(Toolbar_t icon_name) { return m_sprite[icon_name]; };
 
 protected:
 
