@@ -1,10 +1,14 @@
 #pragma once
 #include "Icons.h"
 
+
 class Demon : public Icons
 {
 public:
-	Demon() : position(80, 0) {};
+	Demon() : position(80, 0)
+	{
+		
+	};
 	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
 	{
 		sf::Texture pTexture;

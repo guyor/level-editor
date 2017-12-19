@@ -32,7 +32,7 @@ void Controller::run()
 		}
 		
 		window.clear();
-		board.draw(window, (size));
+		board.draw_new_page(window, (size));
 		board.draw_back_rect(window, board.get_mouse(), size,rect);
 		window.display();
 	}

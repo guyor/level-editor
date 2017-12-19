@@ -8,7 +8,7 @@ Board::Board(const sf::Vector2f boardsize, sf::RenderWindow&  window)
 {
 	read_board(boardsize);
 
-	draw(window, boardsize);
+	draw_new_page(window, boardsize);
 	
 
 	
@@ -37,7 +37,7 @@ void Board::draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize)
 	}
 }
 
-void Board::draw(sf::RenderWindow & window,const sf::Vector2f boardsize)
+void Board::draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
 	//draw_backround(window);
 	draw_rects(window, boardsize);
@@ -56,20 +56,19 @@ void Board::draw_backround(sf::RenderWindow & window)
 
 void Board::draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
-	Icons * icons[10];
-	icons[0] = new Pacman;
-	icons[1] = new Demon;
-	icons[2] = new Cookie;
-	icons[3] = new Wall;
-	icons[4] = new Save;
-	icons[5] = new Erase;
-	icons[6] = new Clear;
-	icons[7] = new Red;
-	icons[8] = new Green;
-	icons[9] = new Blue;
+	m_icons[0] = new Pacman;
+	m_icons[1] = new Demon;
+	m_icons[2] = new Cookie;
+	m_icons[3] = new Wall;
+	m_icons[4] = new Save;
+	m_icons[5] = new Erase;
+	m_icons[6] = new Clear;
+	m_icons[7] = new Red;
+	m_icons[8] = new Green;
+	m_icons[9] = new Blue;
 
 	for (size_t i = 0; i < 10; i++)
-		icons[i]->draw(window, boardsize);
+		m_icons[i]->draw(window, boardsize);
 	
 }
 
@@ -86,7 +85,10 @@ void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf:
 
 void Board::mouse_button_released(sf::Event event)
 {
-	
+	for (size_t i = 0; i < 10; i++)
+	{
+		
+	}
 }
 
 // open the .txt file to read from 

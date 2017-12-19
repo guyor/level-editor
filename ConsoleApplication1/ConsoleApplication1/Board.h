@@ -30,7 +30,7 @@ public:
 
 	Board(const sf::Vector2f boardsize, sf::RenderWindow & window);
 	void draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize);
-	void draw(sf::RenderWindow & window,const sf::Vector2f boardsize);
+	void draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void draw_backround(sf::RenderWindow & window);
 	void draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; };
@@ -43,5 +43,6 @@ private:
 	void Board::Open_File(ifstream & input);
 	void read_board(const sf::Vector2f boardsize);
 	sf::Vector2i m_mouse;
+	Icons * m_icons[10];
 };
 
