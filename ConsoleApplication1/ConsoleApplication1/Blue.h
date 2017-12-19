@@ -1,7 +1,7 @@
 #pragma once
-#include "Icons.h"
+#include "Toolbar.h"
 
-class Blue : public Icons
+class Blue : public Toolbar
 {
 public:
 	Blue() {};

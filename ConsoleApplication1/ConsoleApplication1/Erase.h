@@ -1,7 +1,7 @@
 #pragma once
-#include "Icons.h"
+#include "Toolbar.h"
 
-class Erase : public Icons
+class Erase : public Toolbar
 {
 public:
 	Erase() {};

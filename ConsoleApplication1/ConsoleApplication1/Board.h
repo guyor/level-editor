@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "Icons.h"
+#include "Toolbar.h"
 #include <vector>
 #include "Pacman.h"
 #include "Demon.h"
@@ -40,10 +40,10 @@ public:
 	void mouse_button_released(sf::Event event);
 
 private:
-	vector<string> m_Matrix;
-	void Board::Open_File(ifstream & input);
+	vector < vector < Toolbar * > >  m_Matrix;
+	void Open_File(ifstream & input);
 	void read_board(const sf::Vector2f boardsize);
 	sf::Vector2i m_mouse;
-	Icons * m_icons[10];
+	Toolbar * m_toolbar[10];
 };
 

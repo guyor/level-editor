@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Icons.h"
+#include "Toolbar.h"
 #include <iostream>
 
-class Pacman : public Icons
+class Pacman : public Toolbar
 {
 public:
 

@@ -17,22 +17,22 @@ Board::Board(const sf::Vector2f boardsize, sf::RenderWindow&  window)
 
 void Board::draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
-	float toolbar_gap = 60;
-	sf::RectangleShape col(sf::Vector2f(1, (P_SIZE * boardsize.y) - toolbar_gap));
-	sf::RectangleShape row(sf::Vector2f(P_SIZE * boardsize.x, 1));
+	float toolbar_gap = P_SIZE;
+	sf::RectangleShape col(sf::Vector2f(1, (P_SIZE * boardsize.x)));
+	sf::RectangleShape row(sf::Vector2f(P_SIZE * boardsize.y, 1));
 	for (size_t i = 0; i < boardsize.y + 1; i++) // columns
 	{
 		col.setFillColor(sf::Color::White);
-		col.setPosition(i * ((P_SIZE * boardsize.x)/boardsize.y), toolbar_gap);
+		col.setPosition((float)(i * P_SIZE) ,(float) P_SIZE);
 		window.draw(col);
 	}
 
-	for (size_t i = 1; i < boardsize.x  + 2; i++) //rows
+	for (size_t i = 0; i < boardsize.x  + 1; i++) //rows
 	{
 		row.setFillColor(sf::Color::White);
 		row.setPosition(0 , toolbar_gap);
 		window.draw(row);
-		toolbar_gap += (((P_SIZE * boardsize.y) - 60) / (boardsize.x));
+		toolbar_gap += P_SIZE ;
 	}
 }
 
@@ -40,7 +40,7 @@ void Board::draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize
 {
 	//draw_backround(window);
 	draw_rects(window, boardsize);
-	draw_icons(window,boardsize);
+	//draw_icons(window,boardsize);
 	
 }
 
@@ -55,19 +55,19 @@ void Board::draw_backround(sf::RenderWindow & window)
 
 void Board::draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
-	m_icons[0] = new Pacman;
-	m_icons[1] = new Demon;
-	m_icons[2] = new Cookie;
-	m_icons[3] = new Wall;
-	m_icons[4] = new Save;
-	m_icons[5] = new Erase;
-	m_icons[6] = new Clear;
-	m_icons[7] = new Red;
-	m_icons[8] = new Green;
-	m_icons[9] = new Blue;
+	m_toolbar[0] = new Pacman;
+	m_toolbar[1] = new Demon;
+	m_toolbar[2] = new Cookie;
+	m_toolbar[3] = new Wall;
+	m_toolbar[4] = new Save;
+	m_toolbar[5] = new Erase;
+	m_toolbar[6] = new Clear;
+	m_toolbar[7] = new Red;
+	m_toolbar[8] = new Green;
+	m_toolbar[9] = new Blue;
 
 	for (size_t i = 0; i < 10; i++)
-		m_icons[i]->draw(window, boardsize);
+		m_toolbar[i]->draw(window, boardsize);
 	
 }
 
@@ -112,6 +112,5 @@ void Board::read_board(const sf::Vector2f boardsize)
 	for (int i = 0; i < boardsize.x; i++)
 	{
 		getline(input, line);
-		m_Matrix.push_back(line);
 	}
 }

@@ -2,21 +2,17 @@
 
 #include <SFML\Graphics.hpp>
 
+enum Toolbar_t {PACMAN,DEMON,COOKIE,WALL,SAVE,ERASE,CLEAR,RED,BLUE,GREEN};
+
 const int NUM_OF_ICONS = 10;
 
-class Icons
+class Toolbar
 {
 public:
-	Icons() {
-		for (size_t i = 0; i < NUM_OF_ICONS; i++)
-		{
-			//m_rects[i].setSize((sf::Vector2f(80, 60)));
-
-		}
-	};
-	Icons(sf::RenderWindow & window);
+	Toolbar() ;
+	Toolbar(sf::RenderWindow & window);
 	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize) {}
-	~Icons();
+	~Toolbar();
 
 private:
 

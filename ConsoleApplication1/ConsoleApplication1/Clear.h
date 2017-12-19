@@ -1,7 +1,8 @@
 #pragma once
-#include "Icons.h"
+#include "Toolbar.h"
 
-class Clear : public Icons
+
+class Clear : public Toolbar
 {
 public:
 	Clear() : position(6 * 80, 0) {};

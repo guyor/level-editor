@@ -1,8 +1,8 @@
 #pragma once
-#include "Icons.h"
+#include "Toolbar.h"
 
 
-class Demon : public Icons
+class Demon : public Toolbar
 {
 public:
 	Demon() : position(80, 0)

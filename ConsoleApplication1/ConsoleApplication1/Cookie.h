@@ -1,7 +1,7 @@
 #pragma once
-#include "Icons.h"
+#include "Toolbar.h"
 
-class Cookie : public Icons
+class Cookie : public Toolbar
 {
 public:
 	Cookie() {};
