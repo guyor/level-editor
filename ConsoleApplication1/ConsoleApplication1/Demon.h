@@ -11,12 +11,8 @@ public:
 	};
 	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize)
 	{
-		sf::Texture pTexture;
-		sf::RectangleShape rect(sf::Vector2f(80, 60));
-		pTexture.loadFromFile("demon.png");
-		rect.setTexture(&pTexture);
-		rect.setPosition(position);
-		window.draw(rect);
+		m_sprite[DEMON].setPosition(DEMON * P_SIZE, 0);
+		window.draw(m_sprite[DEMON]);
 	}
 
 private:
