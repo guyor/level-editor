@@ -17,23 +17,22 @@ Board::Board(const sf::Vector2f boardsize, sf::RenderWindow&  window)
 
 void Board::draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize)
 {
-	float y = 60;
-	sf::RectangleShape col(sf::Vector2f(1, 540));
-	sf::RectangleShape row(sf::Vector2f(800, 1));
+	float toolbar_gap = 60;
+	sf::RectangleShape col(sf::Vector2f(1, (P_SIZE * boardsize.y) - toolbar_gap));
+	sf::RectangleShape row(sf::Vector2f(P_SIZE * boardsize.x, 1));
 	for (size_t i = 0; i < boardsize.y + 1; i++) // columns
 	{
 		col.setFillColor(sf::Color::White);
-		col.setPosition(i * (800/boardsize.y), 60);
+		col.setPosition(i * ((P_SIZE * boardsize.x)/boardsize.y), toolbar_gap);
 		window.draw(col);
-		
 	}
 
 	for (size_t i = 1; i < boardsize.x  + 2; i++) //rows
 	{
 		row.setFillColor(sf::Color::White);
-		row.setPosition(0 , y);
-		y += ((540) / (boardsize.x));
+		row.setPosition(0 , toolbar_gap);
 		window.draw(row);
+		toolbar_gap += (((P_SIZE * boardsize.y) - 60) / (boardsize.x));
 	}
 }
 

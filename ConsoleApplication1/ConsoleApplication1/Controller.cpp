@@ -2,12 +2,13 @@
 #include "Controller.h"
 
 
-
 void Controller::run()
 {
-	sf::RenderWindow window(sf::VideoMode(801, 601), "SFML works!");
+	unsigned int x, y;
+	std::cin >> x >> y;
+	sf::RenderWindow window(sf::VideoMode(x * P_SIZE, y * P_SIZE), "SFML works!");
 	
-	sf::Vector2f size(10, 10);
+	sf::Vector2f size((float)x, (float)y);
 	Board board(size,window);
 	bool pressed = false;
 	while (window.isOpen())

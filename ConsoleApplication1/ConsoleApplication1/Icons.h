@@ -10,7 +10,7 @@ public:
 	Icons() {
 		for (size_t i = 0; i < NUM_OF_ICONS; i++)
 		{
-			m_rects[i].setSize((sf::Vector2f(80, 60)));
+			//m_rects[i].setSize((sf::Vector2f(80, 60)));
 
 		}
 	};
