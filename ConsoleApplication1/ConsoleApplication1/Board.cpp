@@ -9,13 +9,13 @@ Board::Board(const sf::Vector2f boardsize, sf::RenderWindow&  window)
 	read_board(boardsize);
 
 	draw_new_page(window, boardsize);
-	
 
-	
+
+
 
 }
 
-void Board::draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize)
+void Board::draw_grid(sf::RenderWindow & window, const sf::Vector2f boardsize)
 {
 	float toolbar_gap = P_SIZE;
 	sf::RectangleShape col(sf::Vector2f(1, (P_SIZE * boardsize.x)));
@@ -23,25 +23,25 @@ void Board::draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize)
 	for (size_t i = 0; i < boardsize.y + 1; i++) // columns
 	{
 		col.setFillColor(sf::Color::White);
-		col.setPosition((float)(i * P_SIZE) ,(float) P_SIZE);
+		col.setPosition((float)(i * P_SIZE), (float)P_SIZE);
 		window.draw(col);
 	}
 
-	for (size_t i = 0; i < boardsize.x  + 1; i++) //rows
+	for (size_t i = 0; i < boardsize.x + 1; i++) //rows
 	{
 		row.setFillColor(sf::Color::White);
-		row.setPosition(0 , toolbar_gap);
+		row.setPosition(0, toolbar_gap);
 		window.draw(row);
-		toolbar_gap += P_SIZE ;
+		toolbar_gap += P_SIZE;
 	}
 }
 
-void Board::draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize)
+void Board::draw_new_page(sf::RenderWindow & window, const sf::Vector2f boardsize)
 {
 	//draw_backround(window);
-	draw_rects(window, boardsize);
-	draw_icons(window,boardsize);
-	
+	draw_grid(window, boardsize);
+	m_toolbar.draw_toolbar(window);
+
 }
 
 void Board::draw_backround(sf::RenderWindow & window)
@@ -53,23 +53,6 @@ void Board::draw_backround(sf::RenderWindow & window)
 	window.draw(background);
 }
 
-void Board::draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize)
-{
-	m_toolbar[0] = new Pacman;
-	m_toolbar[1] = new Demon;
-	m_toolbar[2] = new Cookie;
-	m_toolbar[3] = new Wall;
-	m_toolbar[4] = new Save;
-	m_toolbar[5] = new Erase;
-	m_toolbar[6] = new Clear;
-	m_toolbar[7] = new Red;
-	m_toolbar[8] = new Green;
-	m_toolbar[9] = new Blue;
-
-	for (size_t i = 0; i < 10; i++)
-		m_toolbar[i]->draw(window, boardsize);
-	
-}
 
 void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect)
 {
@@ -77,16 +60,20 @@ void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf:
 	int x = (position.x - (position.x % (int)(800 / (boardsize.x - 1))));
 	sf::Vector2f pos((float)x, (float)y);
 	rect.setPosition(pos);
-	rect.setFillColor(sf::Color(255,255,255,100));
+	rect.setFillColor(sf::Color(255, 255, 255, 100));
 	window.draw(rect);
 
 }
 
 void Board::mouse_button_released(sf::Event event)
 {
-	for (size_t i = 0; i < 10; i++)
+	int x = event.mouseButton.x;
+	int y = event.mouseButton.y;
+	Toolbar_t icon = m_toolbar.get_icon();
+
+	switch (icon)
 	{
-		
+	case PACMAN :
 	}
 }
 

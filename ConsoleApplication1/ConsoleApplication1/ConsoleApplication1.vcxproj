@@ -151,6 +151,7 @@
     <ClInclude Include="Demon.h" />
     <ClInclude Include="Erase.h" />
     <ClInclude Include="Green.h" />
+    <ClInclude Include="Icon.h" />
     <ClInclude Include="Toolbar.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Pacman.h" />

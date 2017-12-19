@@ -6,11 +6,7 @@ void Controller::run()
 {
 	unsigned int x, y;
 	std::cin >> x >> y;
-	if (y < 10)
-	{
-		std::cerr << "too few coloumns, please enter a higher number of coloumns\n";
-		exit(1);
-	}
+	
 	sf::RenderWindow window(sf::VideoMode(((y + 1) * P_SIZE) , x * P_SIZE), "SFML works!");
 	
 	sf::Vector2f size((float)x, (float)y);
@@ -18,7 +14,6 @@ void Controller::run()
 	bool pressed = false;
 	while (window.isOpen())
 	{
-		sf::RectangleShape rect(sf::Vector2f(800 / size.y, 540 / size.x));
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -39,7 +34,7 @@ void Controller::run()
 		
 		window.clear();
 		board.draw_new_page(window, (size));
-		board.draw_back_rect(window, board.get_mouse(), size,rect);
+		
 		window.display();
 	}
 }

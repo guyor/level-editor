@@ -1,11 +1,10 @@
 #pragma once
-#include "Toolbar.h"
 
 
-class Clear
+class Icon 
 {
 public:
-	
+
 
 private:
 	

@@ -2,7 +2,6 @@
 
 #include <SFML\Graphics.hpp>
 #include "Toolbar.h"
-#include <vector>
 #include "Pacman.h"
 #include "Demon.h"
 #include "Cookie.h"
@@ -17,7 +16,7 @@
 #include "Green.h"
 
 using std::ifstream;
-using std::vector;
+
 using std::string;
 using std::cerr;
 
@@ -28,10 +27,9 @@ public:
 	~Board() {};
 
 	Board(const sf::Vector2f boardsize, sf::RenderWindow & window);
-	void draw_rects(sf::RenderWindow & window,const sf::Vector2f boardsize);
+	void draw_grid(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void draw_backround(sf::RenderWindow & window);
-	void draw_icons(sf::RenderWindow & window,const sf::Vector2f boardsize);
 	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; };
 	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect);
 	sf::Vector2i get_mouse() { return m_mouse; };
@@ -42,6 +40,7 @@ private:
 	void Open_File(ifstream & input);
 	void read_board(const sf::Vector2f boardsize);
 	sf::Vector2i m_mouse;
-	Toolbar * m_toolbar[10];
+	Toolbar m_toolbar;
+	
 };
 

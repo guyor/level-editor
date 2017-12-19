@@ -10,4 +10,7 @@ public:
 
 	void run();
 	sf::Vector2f read_data();
+private:
+
+	
 };
