@@ -14,11 +14,19 @@
 #include "Blue.h"
 #include "Red.h"
 #include "Green.h"
+#include "Icon.h"
 
 using std::ifstream;
 
 using std::string;
 using std::cerr;
+
+struct Item
+{
+	Toolbar_t _shape;
+	Toolbar_t _color;
+};
+
 
 class Board
 {
@@ -27,8 +35,8 @@ public:
 	~Board() {};
 
 	Board(const sf::Vector2f boardsize, sf::RenderWindow & window);
-	void draw_grid(sf::RenderWindow & window,const sf::Vector2f boardsize);
-	void draw_new_page(sf::RenderWindow & window,const sf::Vector2f boardsize);
+	void draw_grid(sf::RenderWindow & window);
+	void draw_new_page(sf::RenderWindow & window);
 	void draw_backround(sf::RenderWindow & window);
 	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; };
 	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect);
@@ -36,11 +44,14 @@ public:
 	void mouse_button_released(sf::Event event);
 
 private:
-	vector < vector < Toolbar * > >  m_Matrix;
+	
 	void Open_File(ifstream & input);
-	void read_board(const sf::Vector2f boardsize);
+	void read_board();
 	sf::Vector2i m_mouse;
 	Toolbar m_toolbar;
+	const sf::Vector2f m_boardsize;
+	vector < vector <Icon * > > m_mat;
+	Item m_new_icon;
 	
 };
 

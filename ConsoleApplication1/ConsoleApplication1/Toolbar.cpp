@@ -5,7 +5,7 @@
 Toolbar::Toolbar()
 {
 	for (size_t i = 0; i < NUM_OF_ICONS; i++)
-		m_positions[i] = sf::Vector2f(i *P_SIZE, 0);
+		m_positions[i] = sf::Vector2f(i *(float)P_SIZE, 0);
 }
 
 
@@ -39,7 +39,10 @@ void Toolbar::draw_toolbar(sf::RenderWindow & window)
 Toolbar_t Toolbar::get_icon(sf::Vector2f vec)
 {
 	for (size_t i = 0; i < NUM_OF_ICONS ; i++)
+	{
 		if (m_positions[i] == vec)
 			return (Toolbar_t)i;
+	}
+	return (Toolbar_t)0;
 }
 

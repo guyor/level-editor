@@ -33,7 +33,7 @@ void Controller::run()
 		}
 		
 		window.clear();
-		board.draw_new_page(window, (size));
+		board.draw_new_page(window);
 		
 		window.display();
 	}
