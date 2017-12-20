@@ -120,9 +120,8 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 	
 	else // means a cell in the grid was pressed
 	{
-		int x = (int)pos.x / P_SIZE;
-		int y = (int)pos.y / P_SIZE;
-		std::cout << x << " " << y << "\n";
+		int x = ((int)pos.y / P_SIZE)-1;
+		int y = (int)pos.x / P_SIZE;
 		switch (m_new_icon._shape)
 		{
 		case PACMAN:
@@ -157,7 +156,7 @@ void Board::draw_icons(sf::RenderWindow & window)
 	for (size_t i = 0; i < m_boardsize.x ; i++)
 		for (size_t j = 0; j < m_boardsize.y; j++)
 			if (m_grid[i][j] != nullptr)
-				m_grid[i][j]->draw(window,sf::Vector2f(i*P_SIZE,j*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
+				m_grid[i][j]->draw(window,sf::Vector2f(j*P_SIZE,(i+1)*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
 }
 
 bool Board::open_file(ifstream& input)
