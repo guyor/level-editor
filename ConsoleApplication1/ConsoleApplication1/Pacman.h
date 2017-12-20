@@ -14,7 +14,7 @@ public:
 	{
 		sprites[PACMAN].setPosition(pos);
 		window.draw(sprites[PACMAN]);
-	};
+	}
 	
 
 private:

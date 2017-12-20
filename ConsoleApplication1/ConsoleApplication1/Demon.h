@@ -14,4 +14,5 @@ public:
 	};
 private:
 	Toolbar_t m_color;
+	Toolbar_t m_shape;
 };

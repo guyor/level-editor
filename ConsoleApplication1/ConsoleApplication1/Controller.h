@@ -5,12 +5,14 @@ class Controller
 {
 public:
 
-	Controller() {}
+	Controller():m_board(){}
 	~Controller() {}
 
 	void run();
-	sf::Vector2f read_data();
+	
 private:
-
+	float m_x;
+	float m_y;
+	Board m_board;
 	
 };

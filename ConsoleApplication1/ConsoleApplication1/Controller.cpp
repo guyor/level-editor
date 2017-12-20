@@ -4,19 +4,16 @@
 
 void Controller::run()
 {
-	unsigned int x, y;
-	std::cin >> x >> y;
-	
-	sf::RenderWindow window(sf::VideoMode(((y + 1) * P_SIZE) , x * P_SIZE), "SFML works!");
-	
-	sf::Vector2f size((float)x, (float)y);
-	Board board(size,window);
+	sf::Vector2f size(m_x, m_y);
 
+	sf::RenderWindow window(sf::VideoMode(((int)(m_board.getBoardSize().y + 1) * P_SIZE) , (int)m_board.getBoardSize().x * P_SIZE), "SFML works!");
+	
 	bool pressed = false;
 	while (window.isOpen())
 	{
 		window.clear();
-		board.draw_new_page(window);
+		m_board.draw(window);
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -26,9 +23,9 @@ void Controller::run()
 					window.close();
 					break;
 			case sf::Event::MouseButtonReleased:
-				board.mouse_button_released(event,window);
+				m_board.mouse_button_released(event,window);
 				break;
-
+				
 			}
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -40,14 +37,5 @@ void Controller::run()
 	}
 }
 
-sf::Vector2f Controller::read_data()
-{
-	sf::Vector2f boardsize;
-	std::cout << "please enter number of rows ";
-	std::cin >> boardsize.x;
-	std::cout << "please enter number of columns ";
-	std::cin >> boardsize.y;
-	return boardsize;
-}
 
 

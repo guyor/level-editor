@@ -30,6 +30,7 @@ void Toolbar::set_toolbar()
 	{
 		m_sprite[i].setTexture(m_pTexture[i]);
 		m_sprite[i].setScale(sf::Vector2f(((float)P_SIZE / SCALE),((float)P_SIZE / SCALE)));
+
 		m_sprite[i].setPosition(m_positions[i]);
 	}
 	

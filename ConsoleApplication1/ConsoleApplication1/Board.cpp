@@ -4,12 +4,10 @@
 
 
 
-Board::Board(const sf::Vector2f size, sf::RenderWindow&  window) :
-	m_boardsize(size), m_grid((int)size.x, vector < Icon * >((int)size.y))
+Board::Board()
 {
+	read_data();
 	m_toolbar.set_toolbar();
-	read_board();
-	draw_new_page(window);
 }
 
 void Board::draw_grid(sf::RenderWindow & window)
@@ -34,7 +32,7 @@ void Board::draw_grid(sf::RenderWindow & window)
 	
 }
 
-void Board::draw_new_page(sf::RenderWindow & window)
+void Board::draw(sf::RenderWindow & window)
 {
 	//draw_backround(window);
 	draw_grid(window);
@@ -166,27 +164,81 @@ void Board::draw_icons()
 		}
 }
 
-// open the .txt file to read from 
-void Board::Open_File(ifstream & input)
+bool Board::open_file(ifstream& input)
 {
 	input.open("board.txt");
 	if (!input.is_open())
+		return false;
+	return true;
+}
+
+void Board::read_data()
+{
+	ifstream input;
+	if (open_file(input))
 	{
-		cerr << "cannot open file";
-		exit(EXIT_FAILURE);
+		char c;
+		input >> m_boardsize.x >> m_boardsize.y ;
+		m_grid.assign((int)m_boardsize.x,vector < Icon * >((int)m_boardsize.y, nullptr));
+
+		for (size_t i = 0; i < m_boardsize.x; i++)
+			for (size_t j = 0; j < m_boardsize.y; j++)
+			{
+				input >> c;
+				read_char(c, i, j);
+			}
+	}
+	else
+	{
+		std::cout << "please enter number of rows ";
+		std::cin >> m_boardsize.x;
+		std::cout << "please enter number of columns ";
+		std::cin >> m_boardsize.y;
+		m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
 	}
 }
 
-void Board::read_board()
+void Board::read_char(const char c,const size_t i, const size_t j )
 {
-	ifstream input;
-	Open_File(input);
-
-	std::string line;
-	getline(input, line);
-
-	for (int i = 0; i < m_boardsize.x; i++)
+	switch (c)
 	{
-		getline(input, line);
+	case '#' :
+		m_grid[i][j] = new Wall(RED);
+		break;
+	case 'E' :
+		m_grid[i][j] = new Wall(GREEN);
+		break;
+	case 'D' :
+		m_grid[i][j] = new Wall(BLUE);
+		break;
+	case '*' :
+		m_grid[i][j] = new Cookie(RED);
+		break;
+	case 'I':
+		m_grid[i][j] = new Cookie(GREEN);
+		break;
+	case 'K' :
+		m_grid[i][j] = new Cookie(BLUE);
+		break;
+	case '%' :
+		m_grid[i][j] = new Demon(RED);
+		break;
+	case 'T' :
+		m_grid[i][j] = new Demon(GREEN);
+		break;
+	case 'G' :
+		m_grid[i][j] = new Demon(BLUE);
+		break;
+	case '@' :
+		m_grid[i][j] = new Pacman(RED);
+		break;
+	case 'W' :
+		m_grid[i][j] = new Pacman(GREEN);
+		break;
+	case 'S' :
+		m_grid[i][j] = new Pacman(BLUE);
+		break;
+	default:
+		break;
 	}
 }
