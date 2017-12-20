@@ -65,14 +65,16 @@ void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf:
 
 void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 {
+	
 	int x = event.mouseButton.x;
 	int y = event.mouseButton.y;
 	
 	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
 	if (pos.y == 0) // means toolbar button was pressed
 	{
+		erase_mode = false;
 		Toolbar_t icon = m_toolbar.get_icon_name(pos);
-		
+
 		switch (icon)
 		{
 		case PACMAN:
@@ -93,19 +95,19 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			break;
 		case SAVE:
 			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
-			// write grid into .txt file
+			save_grid();
 			break;
 		case ERASE:
 			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
-			// put a null and delte
+			erase_mode = true;
 			break;
 		case CLEAR:
-			setToolbarRect(m_shape_rect,pos, sf::Color(255,150,0,200));
-			// erase all icons and save
+			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
+			clear_grid();
 			break;
 		case RED:
 			m_new_icon._color = RED;
-			setToolbarRect(m_color_rect,pos, sf::Color::Red);
+			setToolbarRect(m_color_rect, pos, sf::Color::Red);
 			break;
 		case GREEN:
 			m_new_icon._color = GREEN;
@@ -117,26 +119,31 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			break;
 		}
 	}
-	
 	else // means a cell in the grid was pressed
 	{
-		int x = ((int)pos.y / P_SIZE)-1;
+		int x = ((int)pos.y / P_SIZE) - 1;
 		int y = (int)pos.x / P_SIZE;
-		switch (m_new_icon._shape)
+		if (erase_mode)
+			m_grid[x][y] = nullptr;
+		else
 		{
-		case PACMAN:
-			m_grid[x][y] = new Pacman(m_new_icon._color);
-			break;
-		case DEMON:
-			m_grid[x][y] = new Demon(m_new_icon._color);
-			break;
-		case COOKIE:
-			m_grid[x][y] = new Cookie(m_new_icon._color);
-			break;
-		case WALL:
-			m_grid[x][y] = new Wall(m_new_icon._color);
-			break;
+			switch (m_new_icon._shape)
+			{
+			case PACMAN:
+				m_grid[x][y] = new Pacman(m_new_icon._color);
+				break;
+			case DEMON:
+				m_grid[x][y] = new Demon(m_new_icon._color);
+				break;
+			case COOKIE:
+				m_grid[x][y] = new Cookie(m_new_icon._color);
+				break;
+			case WALL:
+				m_grid[x][y] = new Wall(m_new_icon._color);
+				break;
+			}
 		}
+		
 	}
 	
 }
@@ -159,7 +166,54 @@ void Board::draw_icons(sf::RenderWindow & window)
 				m_grid[i][j]->draw(window,sf::Vector2f(j*P_SIZE,(i+1)*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
 }
 
-bool Board::open_file(ifstream& input)
+
+void Board::save_grid()
+{
+	std::ofstream output;
+	output.open("board.txt");
+	if (!output.is_open())
+	{
+		std::cerr << "could not open board.txt";
+		getchar();
+		exit(EXIT_FAILURE);
+	}
+
+	output << m_boardsize.x << "\n" << m_boardsize.y << "\n";
+	for (size_t i = 0; i < m_boardsize.x; i++)
+	{
+		for (size_t j = 0; j < m_boardsize.y; j++)
+		{
+			if (m_grid[i][j] == nullptr)
+				output << " ";
+			else
+				switch (m_grid[i][j]->getColor())
+				{
+				case RED:
+					write_reds(output, m_grid[i][j]->getShape());
+					break;
+				case GREEN:
+					write_greens(output, m_grid[i][j]->getShape());
+					break;
+				case BLUE:
+					write_blues(output, m_grid[i][j]->getShape());
+					break;
+				}
+		}
+		output << "\n";
+	}
+		
+			
+
+}
+
+void Board::clear_grid()
+{
+	for (size_t i = 0; i < m_boardsize.x; i++)
+		for (size_t j = 0; j < m_boardsize.y; j++)
+			m_grid[i][j] = nullptr;
+}
+
+bool Board::open_file(fstream& input)
 {
 	input.open("board.txt");
 	if (!input.is_open())
@@ -169,7 +223,7 @@ bool Board::open_file(ifstream& input)
 
 void Board::read_data()
 {
-	ifstream input;
+	std::fstream input;
 	if (open_file(input))
 	{
 		char c;
@@ -190,6 +244,63 @@ void Board::read_data()
 		std::cout << "please enter number of columns ";
 		std::cin >> m_boardsize.y;
 		m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
+	}
+}
+
+void Board::write_reds(std::ofstream &output, Toolbar_t shape)
+{
+	switch (shape)
+	{
+	case PACMAN:
+		output << "@";
+		break;
+	case DEMON:
+		output << "%";
+		break;
+	case COOKIE:
+		output << "*";
+		break;
+	case WALL:
+		output << "#";
+		break;
+	}
+}
+
+void Board::write_greens(std::ofstream &output, Toolbar_t shape)
+{
+	switch (shape)
+	{
+	case PACMAN:
+		output << "W";
+		break;
+	case DEMON:
+		output << "T";
+		break;
+	case COOKIE:
+		output << "I";
+		break;
+	case WALL:
+		output << "E";
+		break;
+	}
+}
+
+void Board::write_blues(std::ofstream &output, Toolbar_t shape)
+{
+	switch (shape)
+	{
+	case PACMAN:
+		output << "S";
+		break;
+	case DEMON:
+		output << "G";
+		break;
+	case COOKIE:
+		output << "K";
+		break;
+	case WALL:
+		output << "D";
+		break;
 	}
 }
 

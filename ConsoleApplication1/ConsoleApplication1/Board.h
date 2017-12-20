@@ -16,7 +16,7 @@
 #include "Green.h"
 #include "Icon.h"
 
-using std::ifstream;
+using std::fstream;
 
 using std::string;
 using std::cerr;
@@ -46,8 +46,13 @@ public:
 	void draw_icons(sf::RenderWindow & window);
 
 private:
-	bool open_file(ifstream& input);
+	void save_grid();
+	void clear_grid();
+	bool open_file(fstream& input);
 	void read_data();
+	void write_reds(std::ofstream &output,Toolbar_t shape);
+	void write_greens(std::ofstream &output, Toolbar_t shape);
+	void write_blues(std::ofstream &output, Toolbar_t shape);
 	void read_char(const char c,size_t i,size_t j);
 	sf::Vector2i m_mouse;
 	Toolbar m_toolbar;
@@ -57,6 +62,7 @@ private:
 	sf::RectangleShape m_shape_rect;
 	sf::RectangleShape m_color_rect;
 	sf::RectangleShape m_grid_rect;
+	bool erase_mode;
 	
 };
 
