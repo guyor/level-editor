@@ -4,9 +4,8 @@
 
 void Controller::run()
 {
-	sf::Vector2f size(m_x, m_y);
 
-	sf::RenderWindow window(sf::VideoMode(((int)(m_board.getBoardSize().y + 1) * P_SIZE) , (int)m_board.getBoardSize().x * P_SIZE), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode((int)(m_y + 1) * P_SIZE , (int)m_x * P_SIZE), "SFML works!");
 	
 	bool pressed = false;
 	while (window.isOpen())

@@ -5,8 +5,9 @@
 class Icon
 {
 public:
+	
+
+protected:
 	virtual void draw(sf::RenderWindow window, sf::Vector2f pos, sf::Sprite sprites[]) {};
-
-
-private:
+	Toolbar_t m_color;
 };
