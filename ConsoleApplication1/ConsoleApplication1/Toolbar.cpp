@@ -13,7 +13,7 @@ Toolbar::~Toolbar()
 {
 }
 
-void Toolbar::draw_toolbar(sf::RenderWindow & window)
+void Toolbar::set_toolbar()
 {
 	m_pTexture[PACMAN].loadFromFile("pacman.png");
 	m_pTexture[DEMON].loadFromFile("demon.png");
@@ -31,9 +31,14 @@ void Toolbar::draw_toolbar(sf::RenderWindow & window)
 		m_sprite[i].setTexture(m_pTexture[i]);
 		m_sprite[i].setScale(sf::Vector2f(((float)P_SIZE / SCALE),((float)P_SIZE / SCALE)));
 		m_sprite[i].setPosition(m_positions[i]);
-		window.draw(m_sprite[i]);
 	}
 	
+}
+
+void Toolbar::draw_toolbar(sf::RenderWindow & window)
+{
+	for (size_t i = 0; i < NUM_OF_ICONS; i++)
+		window.draw(m_sprite[i]);
 }
 
 Toolbar_t Toolbar::get_icon_name(sf::Vector2f vec)

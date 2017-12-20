@@ -11,9 +11,12 @@ void Controller::run()
 	
 	sf::Vector2f size((float)x, (float)y);
 	Board board(size,window);
+
 	bool pressed = false;
 	while (window.isOpen())
 	{
+		window.clear();
+		board.draw_new_page(window);
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -23,7 +26,7 @@ void Controller::run()
 					window.close();
 					break;
 			case sf::Event::MouseButtonReleased:
-				board.mouse_button_released(event);
+				board.mouse_button_released(event,window);
 				break;
 
 			}
@@ -32,8 +35,6 @@ void Controller::run()
 
 		}
 		
-		window.clear();
-		board.draw_new_page(window);
 		
 		window.display();
 	}

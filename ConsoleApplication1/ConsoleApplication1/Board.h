@@ -42,7 +42,9 @@ public:
 	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect);
 	sf::Vector2i get_mouse() { return m_mouse; };
 	void mouse_button_released(sf::Event event, sf::RenderWindow & window);
-	void draw_toolbar_rect(sf::RenderWindow & window, sf::Vector2f pos);
+	void setToolbarRect(sf::RectangleShape &rect, sf::Vector2f pos, sf::Color color);
+
+	void draw_icons();
 
 private:
 	
@@ -53,6 +55,9 @@ private:
 	const sf::Vector2f m_boardsize;
 	vector < vector < Icon * > > m_grid;
 	Item m_new_icon;
+	sf::RectangleShape m_shape_rect;
+	sf::RectangleShape m_color_rect;
+	sf::RectangleShape m_grid_rect;
 	
 };
 

@@ -8,7 +8,7 @@ using std::vector;
 enum Toolbar_t {PACMAN,DEMON,COOKIE,WALL,SAVE,ERASE,CLEAR,RED,BLUE,GREEN};
 
 const int NUM_OF_ICONS = 10;
-const unsigned int P_SIZE = 55;
+const unsigned int P_SIZE = 64;
 const int SCALE = 64;
 
 class Toolbar
@@ -17,9 +17,9 @@ public:
 	Toolbar() ;
 	~Toolbar();
 	
-	virtual void draw(sf::RenderWindow & window, sf::Vector2f boardsize) {}// delete
-
+	void set_toolbar();
 	void draw_toolbar(sf::RenderWindow & window);
+
 	Toolbar_t get_icon_name(sf::Vector2f vec);
 	sf::Sprite get_icon_sprite(Toolbar_t icon_name) { return m_sprite[icon_name]; };
 
