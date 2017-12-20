@@ -4,14 +4,11 @@
 
 void Controller::run()
 {
-
-	sf::RenderWindow window(sf::VideoMode((int)(m_y + 1) * P_SIZE , (int)m_x * P_SIZE), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode((int)m_y * P_SIZE , (int)(m_x + 1) * P_SIZE), "SFML works!");
 	
-	bool pressed = false;
 	while (window.isOpen())
 	{
 		window.clear();
-		m_board.draw(window);
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -31,7 +28,7 @@ void Controller::run()
 
 		}
 		
-		
+		m_board.draw(window);
 		window.display();
 	}
 }

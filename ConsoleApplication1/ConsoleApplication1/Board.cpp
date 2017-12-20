@@ -15,14 +15,14 @@ void Board::draw_grid(sf::RenderWindow & window)
 	float toolbar_gap = P_SIZE;
 	sf::RectangleShape col(sf::Vector2f(1, (P_SIZE * m_boardsize.x)));
 	sf::RectangleShape row(sf::Vector2f(P_SIZE * m_boardsize.y, 1));
-	for (size_t i = 0; i < m_boardsize.y + 1; i++) // columns
+	for (size_t i = 0; i < m_boardsize.y ; i++) // columns
 	{
 		col.setFillColor(sf::Color::White);
 		col.setPosition((float)(i * P_SIZE), (float)P_SIZE);
 		window.draw(col);
 	}
 
-	for (size_t i = 0; i < m_boardsize.x + 1; i++) //rows
+	for (size_t i = 0; i < m_boardsize.x ; i++) //rows
 	{
 		row.setFillColor(sf::Color::White);
 		row.setPosition(0, toolbar_gap);
@@ -39,7 +39,7 @@ void Board::draw(sf::RenderWindow & window)
 	m_toolbar.draw_toolbar(window);
 	window.draw(m_shape_rect);
 	window.draw(m_color_rect);
-
+	draw_icons(window);
 }
 
 void Board::draw_backround(sf::RenderWindow & window)
@@ -69,7 +69,6 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 	int y = event.mouseButton.y;
 	
 	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
-	std::cout << pos.x << " " << pos.y << "\n";
 	if (pos.y == 0) // means toolbar button was pressed
 	{
 		Toolbar_t icon = m_toolbar.get_icon_name(pos);
@@ -123,6 +122,7 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 	{
 		int x = (int)pos.x / P_SIZE;
 		int y = (int)pos.y / P_SIZE;
+		std::cout << x << " " << y << "\n";
 		switch (m_new_icon._shape)
 		{
 		case PACMAN:
@@ -152,16 +152,12 @@ void Board::setToolbarRect(sf::RectangleShape &rect,sf::Vector2f pos, sf::Color 
 }
 
 
-void Board::draw_icons()
+void Board::draw_icons(sf::RenderWindow & window)
 {
 	for (size_t i = 0; i < m_boardsize.x ; i++)
 		for (size_t j = 0; j < m_boardsize.y; j++)
-		{
-			if (m_grid[i][j] != NULL)
-			{
-				
-			}
-		}
+			if (m_grid[i][j] != nullptr)
+				m_grid[i][j]->draw(window,sf::Vector2f(i*P_SIZE,j*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
 }
 
 bool Board::open_file(ifstream& input)

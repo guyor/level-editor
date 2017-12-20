@@ -4,12 +4,26 @@
 class Wall : public Icon
 {
 public:
-	Wall(Toolbar_t color) { m_color = color; }
+	Wall(Toolbar_t color) { m_color = color; m_shape = WALL; }
 
-	void draw(sf::RenderWindow window, sf::Vector2f pos, sf::Sprite sprites[])
+	void draw(sf::RenderWindow& window, sf::Vector2f pos, sf::Sprite sprite)
 	{
-		sprites[WALL].setPosition(pos);
-		window.draw(sprites[WALL]);
+		switch (m_color)
+		{
+		case RED :
+			sprite.setColor(sf::Color::Red);
+			break;
+		case GREEN:
+			sprite.setColor(sf::Color::Green);
+			break;
+		case BLUE:
+			sprite.setColor(sf::Color::Blue);
+			break;
+		default:
+			break;
+		}
+		sprite.setPosition(pos);
+		window.draw(sprite);
 	};
 
 

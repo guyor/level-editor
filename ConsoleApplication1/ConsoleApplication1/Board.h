@@ -43,7 +43,7 @@ public:
 	void mouse_button_released(sf::Event event, sf::RenderWindow & window);
 	void setToolbarRect(sf::RectangleShape &rect, sf::Vector2f pos, sf::Color color);
 	sf::Vector2f getBoardSize() { return m_boardsize; }
-	void draw_icons();
+	void draw_icons(sf::RenderWindow & window);
 
 private:
 	bool open_file(ifstream& input);
