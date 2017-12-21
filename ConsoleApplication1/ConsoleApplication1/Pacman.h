@@ -21,7 +21,7 @@ public:
 			sprite.setColor(sf::Color::Green);
 			break;
 		case BLUE:
-			sprite.setColor(sf::Color(50,50,155));
+			sprite.setColor(sf::Color(25,25,255,255));
 			break;
 		default:
 			break;

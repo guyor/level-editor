@@ -38,7 +38,6 @@ public:
 	void draw(sf::RenderWindow & window);
 	void draw_backround(sf::RenderWindow & window);
 	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; }
-	void draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect);
 	sf::Vector2i get_mouse() { return m_mouse; };
 	void mouse_button_released(sf::Event event, sf::RenderWindow & window);
 	void setToolbarRect(sf::RectangleShape &rect, sf::Vector2f pos, sf::Color color);
@@ -63,9 +62,11 @@ private:
 	sf::RectangleShape m_shape_rect;
 	sf::RectangleShape m_color_rect;
 	sf::RectangleShape m_grid_rect;
+	sf::RectangleShape m_moving_rect;
 	sf::Sprite m_moving_icon;
-	bool erase_mode;
+	bool erase_mode = true;
 	sf::Vector2f m_pacman_pos;
+	bool pacman_placed;
 	
 };
 

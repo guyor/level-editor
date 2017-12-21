@@ -6,8 +6,11 @@
 
 Board::Board()
 {
-	m_new_icon._color = RED;
-	m_new_icon._shape = PACMAN;
+	m_new_icon._shape = NONE;
+	m_new_icon._color = NONE;
+	m_moving_rect.setSize(sf::Vector2f((float)P_SIZE, (float)P_SIZE));
+	m_moving_rect.setFillColor(sf::Color::Transparent);
+	pacman_placed = false;
 	read_data();
 	m_toolbar.set_toolbar();
 }
@@ -42,7 +45,7 @@ void Board::draw(sf::RenderWindow & window)
 	window.draw(m_shape_rect);
 	window.draw(m_color_rect);
 	draw_icons(window);
-	window.draw(m_moving_icon);
+	erase_mode ? window.draw(m_moving_rect) : window.draw(m_moving_icon);
 }
 
 void Board::draw_backround(sf::RenderWindow & window)
@@ -55,20 +58,9 @@ void Board::draw_backround(sf::RenderWindow & window)
 }
 
 
-void Board::draw_back_rect(sf::RenderWindow & window, sf::Vector2i position, sf::Vector2f boardsize, sf::RectangleShape rect)
-{
-	int y = (position.y - (position.y % (int)(540 / boardsize.y)));
-	int x = (position.x - (position.x % (int)(800 / (boardsize.x - 1))));
-	sf::Vector2f pos((float)x, (float)y);
-	rect.setPosition(pos);
-	rect.setFillColor(sf::Color(255, 255, 255, 100));
-	window.draw(rect);
-
-}
 
 void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 {
-	
 	int x = event.mouseButton.x;
 	int y = event.mouseButton.y;
 	
@@ -77,12 +69,10 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 	{
 		erase_mode = false;
 		Toolbar_t icon = m_toolbar.get_icon_name(pos);
-
 		switch (icon)
 		{
 		case PACMAN:
 			m_new_icon._shape = PACMAN;
-			m_pacman_pos = pos;
 			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
 			break;
 		case DEMON:
@@ -98,15 +88,16 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
 			break;
 		case SAVE:
-			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
+			setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
 			save_grid();
 			break;
 		case ERASE:
-			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
+			setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
 			erase_mode = true;
 			break;
 		case CLEAR:
-			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
+			setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
+			erase_mode = true;
 			clear_grid();
 			break;
 		case RED:
@@ -134,9 +125,11 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			switch (m_new_icon._shape)
 			{
 			case PACMAN:
-				if (m_grid[m_pacman_pos.x][m_pacman_pos.y] != nullptr)
+				if (pacman_placed)
 					m_grid[m_pacman_pos.x][m_pacman_pos.y] = nullptr;
 				m_grid[x][y] = new Pacman(m_new_icon._color);
+				m_pacman_pos = sf::Vector2f(x,y);
+				pacman_placed = true;
 				break;
 			case DEMON:
 				m_grid[x][y] = new Demon(m_new_icon._color);
@@ -179,6 +172,8 @@ void Board::mouse_moved(sf::Event event,sf::RenderWindow & window)
 	
 	if (pos.y != 0)
 	{
+		m_moving_rect.setFillColor(sf::Color(255, 255, 255, 50));
+		m_moving_rect.setPosition(pos);
 		switch (m_new_icon._shape)
 		{
 		case PACMAN:
