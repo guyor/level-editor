@@ -6,6 +6,7 @@
 
 Board::Board()
 {
+	m_new_icon._color = RED;
 	read_data();
 	m_toolbar.set_toolbar();
 }
@@ -142,10 +143,8 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 				m_grid[x][y] = new Wall(m_new_icon._color);
 				break;
 			}
-		}
-		
+		}	
 	}
-	
 }
 
 void Board::setToolbarRect(sf::RectangleShape &rect,sf::Vector2f pos, sf::Color color)
@@ -163,7 +162,7 @@ void Board::draw_icons(sf::RenderWindow & window)
 	for (size_t i = 0; i < m_boardsize.x ; i++)
 		for (size_t j = 0; j < m_boardsize.y; j++)
 			if (m_grid[i][j] != nullptr)
-				m_grid[i][j]->draw(window,sf::Vector2f(j*P_SIZE,(i+1)*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
+				m_grid[i][j]->draw(window,sf::Vector2f(((float)j)*P_SIZE,((float)(i+1))*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
 }
 
 
@@ -228,12 +227,13 @@ void Board::read_data()
 	{
 		char c;
 		input >> m_boardsize.x >> m_boardsize.y ;
+		input.get();
 		m_grid.assign((int)m_boardsize.x,vector < Icon * >((int)m_boardsize.y, nullptr));
 
 		for (size_t i = 0; i < m_boardsize.x; i++)
-			for (size_t j = 0; j < m_boardsize.y; j++)
+			for (size_t j = 0; j < m_boardsize.y + 1; j++)
 			{
-				input >> c;
+				c = input.get();
 				read_char(c, i, j);
 			}
 	}

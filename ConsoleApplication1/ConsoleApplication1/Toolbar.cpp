@@ -29,7 +29,9 @@ void Toolbar::set_toolbar()
 	for (size_t i = 0; i < NUM_OF_ICONS; i++)
 	{
 		m_sprite[i].setTexture(m_pTexture[i]);
-		m_sprite[i].setScale(sf::Vector2f(((float)P_SIZE / SCALE),((float)P_SIZE / SCALE)));
+		float x = m_sprite[0].getGlobalBounds().height;
+		float y = m_sprite[0].getScale().y;
+		m_sprite[i].setScale(sf::Vector2f(((float)P_SIZE / m_sprite[i].getGlobalBounds().height),((float)P_SIZE / m_sprite[i].getGlobalBounds().height)));
 
 		m_sprite[i].setPosition(m_positions[i]);
 	}
