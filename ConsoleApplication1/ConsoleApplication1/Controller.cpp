@@ -9,7 +9,7 @@ void Controller::run()
 	while (window.isOpen())
 	{
 		window.clear();
-
+		m_board.draw(window);
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -21,6 +21,10 @@ void Controller::run()
 			case sf::Event::MouseButtonReleased:
 				m_board.mouse_button_released(event,window);
 				break;
+			case sf::Event::MouseMoved:
+				m_board.mouse_moved(event,window);
+				
+				break;
 				
 			}
 			if (event.type == sf::Event::Closed)
@@ -28,7 +32,6 @@ void Controller::run()
 
 		}
 		
-		m_board.draw(window);
 		window.display();
 	}
 }

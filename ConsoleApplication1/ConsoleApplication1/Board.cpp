@@ -7,6 +7,7 @@
 Board::Board()
 {
 	m_new_icon._color = RED;
+	m_new_icon._shape = PACMAN;
 	read_data();
 	m_toolbar.set_toolbar();
 }
@@ -41,6 +42,7 @@ void Board::draw(sf::RenderWindow & window)
 	window.draw(m_shape_rect);
 	window.draw(m_color_rect);
 	draw_icons(window);
+	window.draw(m_moving_icon);
 }
 
 void Board::draw_backround(sf::RenderWindow & window)
@@ -80,6 +82,7 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 		{
 		case PACMAN:
 			m_new_icon._shape = PACMAN;
+			m_pacman_pos = pos;
 			setToolbarRect(m_shape_rect, pos, sf::Color(255, 150, 0, 200));
 			break;
 		case DEMON:
@@ -131,6 +134,8 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			switch (m_new_icon._shape)
 			{
 			case PACMAN:
+				if (m_grid[m_pacman_pos.x][m_pacman_pos.y] != nullptr)
+					m_grid[m_pacman_pos.x][m_pacman_pos.y] = nullptr;
 				m_grid[x][y] = new Pacman(m_new_icon._color);
 				break;
 			case DEMON:
@@ -163,6 +168,46 @@ void Board::draw_icons(sf::RenderWindow & window)
 		for (size_t j = 0; j < m_boardsize.y; j++)
 			if (m_grid[i][j] != nullptr)
 				m_grid[i][j]->draw(window,sf::Vector2f(((float)j)*P_SIZE,((float)(i+1))*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
+}
+
+void Board::mouse_moved(sf::Event event,sf::RenderWindow & window)
+{
+	int x = event.mouseMove.x;
+	int y = event.mouseMove.y;
+
+	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
+	
+	if (pos.y != 0)
+	{
+		switch (m_new_icon._shape)
+		{
+		case PACMAN:
+			m_moving_icon = m_toolbar.get_icon_sprite(PACMAN);
+			break;
+		case DEMON:
+			m_moving_icon = m_toolbar.get_icon_sprite(DEMON);
+			break;
+		case COOKIE:
+			m_moving_icon = m_toolbar.get_icon_sprite(COOKIE);
+			break;
+		case WALL:
+			m_moving_icon = m_toolbar.get_icon_sprite(WALL);
+			break;
+		}
+		m_moving_icon.setPosition(pos);
+		switch (m_new_icon._color)
+		{
+		case RED :
+			m_moving_icon.setColor(sf::Color(255, 0, 0, 130));
+			break;
+		case GREEN:
+			m_moving_icon.setColor(sf::Color(0, 255, 0, 130));
+			break;
+		case BLUE:
+			m_moving_icon.setColor(sf::Color(0, 0, 255, 130));
+			break;
+		}
+	}
 }
 
 

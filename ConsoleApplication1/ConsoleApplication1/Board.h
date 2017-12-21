@@ -44,6 +44,7 @@ public:
 	void setToolbarRect(sf::RectangleShape &rect, sf::Vector2f pos, sf::Color color);
 	sf::Vector2f getBoardSize() { return m_boardsize; }
 	void draw_icons(sf::RenderWindow & window);
+	void mouse_moved(sf::Event event,sf::RenderWindow & window);
 
 private:
 	void save_grid();
@@ -62,7 +63,9 @@ private:
 	sf::RectangleShape m_shape_rect;
 	sf::RectangleShape m_color_rect;
 	sf::RectangleShape m_grid_rect;
+	sf::Sprite m_moving_icon;
 	bool erase_mode;
+	sf::Vector2f m_pacman_pos;
 	
 };
 
