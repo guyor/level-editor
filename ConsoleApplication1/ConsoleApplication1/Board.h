@@ -31,8 +31,8 @@ struct Item
 class Board
 {
 public:
-	Board();
-	
+	Board() {};
+	Board(bool read);
 	~Board() {};
 
 	void draw_grid(sf::RenderWindow & window);
@@ -70,8 +70,8 @@ private:
 	sf::Sprite m_moving_icon;
 	bool erase_mode = true;
 	sf::Vector2f m_pacman_pos;
-	bool pacman_placed;
-	bool m_read = true;;
+	bool m_pacman_placed = false;
+	bool m_read;
 
 };
 

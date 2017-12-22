@@ -4,13 +4,14 @@
 
 
 
-Board::Board()
+Board::Board(bool read) :
+	m_read(read)
 {
 	m_new_icon._shape = NONE;
 	m_new_icon._color = NONE;
 	m_moving_rect.setSize(sf::Vector2f((float)P_SIZE, (float)P_SIZE));
 	m_moving_rect.setFillColor(sf::Color::Transparent);
-	pacman_placed = false;
+//	m_pacman_placed = false;
 	read_data();
 	m_toolbar.set_toolbar();
 }
@@ -90,6 +91,7 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 		case SAVE:
 			setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
 			save_grid();
+			m_read = true;
 			break;
 		case ERASE:
 			setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
@@ -127,11 +129,11 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			switch (m_new_icon._shape)
 			{
 			case PACMAN:
-				if (pacman_placed)
+				if (m_pacman_placed)
 					m_grid[(int)m_pacman_pos.x][(int)m_pacman_pos.y] = nullptr;
 				m_grid[x][y] = new Pacman(m_new_icon._color);
 				m_pacman_pos = sf::Vector2f((float)x,(float)y);
-				pacman_placed = true;
+				m_pacman_placed = true;
 				break;
 			case DEMON:
 				m_grid[x][y] = new Demon(m_new_icon._color);
@@ -291,6 +293,11 @@ void Board::read_from_usr()
 	std::cin >> m_boardsize.x;
 	std::cout << "please enter number of columns ";
 	std::cin >> m_boardsize.y;
+	if (m_boardsize.y < 10)
+	{
+		std::cerr << "too few columns, please enter more columns\n";
+		read_from_usr();
+	}
 	m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
 }
 

@@ -7,11 +7,11 @@ void Controller::run()
 	
 	do
 	{
+		Board board(m_read);
 		m_read = true;
-		Board board;
 		int x = (int)board.getBoardSize().x;
 		int y = (int)board.getBoardSize().y;
-		sf::RenderWindow window(sf::VideoMode(y * P_SIZE,(x + 1) * P_SIZE), "SFML works!");
+		sf::RenderWindow window(sf::VideoMode(y * P_SIZE,(x + 1) * P_SIZE), "SFML works!",sf::Style::Titlebar | sf::Style::Close);
 
 		while (window.isOpen())
 		{
@@ -35,12 +35,16 @@ void Controller::run()
 
 				}
 				if (event.type == sf::Event::Closed)
+				{
+					m_out = true;
 					window.close();
+				}
+
 			}
 			window.display();
 		}
 		m_read = board.getRead();
-	} while (!m_read);
+	} while (!m_read && !m_out);
 	
 }
 
