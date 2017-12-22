@@ -29,8 +29,8 @@ void Controller::run()
 					board.mouse_button_released(event, window);
 					break;
 				case sf::Event::MouseMoved:
-					board.mouse_moved(event, window);
-
+					if (board.in_game(event))
+						board.mouse_moved(event, window);
 					break;
 
 				}

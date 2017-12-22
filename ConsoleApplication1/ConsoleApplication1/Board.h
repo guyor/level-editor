@@ -6,14 +6,8 @@
 #include "Demon.h"
 #include "Cookie.h"
 #include "Wall.h"
-#include "Save.h"
-#include "Erase.h"
-#include "Clear.h"
 #include <fstream>
 #include <string>
-#include "Blue.h"
-#include "Red.h"
-#include "Green.h"
 #include "Icon.h"
 
 using std::fstream;
@@ -47,6 +41,7 @@ public:
 	void mouse_moved(sf::Event event,sf::RenderWindow & window);
 	void setRead(bool state) { m_read = state; }
 	bool getRead() { return m_read; }
+	bool in_game(sf::Event event);
 
 private:
 	void save_grid();

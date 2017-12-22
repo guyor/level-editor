@@ -98,8 +98,6 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			erase_mode = true;
 			break;
 		case CLEAR:
-			//setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
-			//erase_mode = true;
 			m_read = false;
 			clear_grid();
 			window.close();
@@ -211,6 +209,20 @@ void Board::mouse_moved(sf::Event event,sf::RenderWindow & window)
 			break;
 		}
 	}
+}
+
+bool Board::in_game(sf::Event event)
+{
+	int x = event.mouseMove.x;
+	int y = event.mouseMove.y;
+	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
+
+	if (pos.x > P_SIZE * (m_boardsize.x - 1) || 
+		pos.y > P_SIZE * m_boardsize.y ||
+		pos.x < 0 || pos.y < 0)
+		return false;
+
+	return true;
 }
 
 

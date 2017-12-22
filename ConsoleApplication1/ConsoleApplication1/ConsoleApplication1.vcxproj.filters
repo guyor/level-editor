@@ -30,25 +30,7 @@
     <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Save.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Erase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Clear.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pacman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Blue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Red.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Green.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Toolbar.h">

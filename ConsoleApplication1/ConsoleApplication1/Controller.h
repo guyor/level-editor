@@ -14,6 +14,4 @@ private:
 
 	bool m_read = true;
 	bool m_out = false;
-	
-	
 };
