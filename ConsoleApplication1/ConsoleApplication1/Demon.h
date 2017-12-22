@@ -5,8 +5,10 @@
 class Demon : public Icon
 {
 public:
+	// Demon c-tor 
 	Demon(Toolbar_t color) { m_color = color ; m_shape = DEMON;}
 
+	// draw demon icon
 	void draw(sf::RenderWindow& window, sf::Vector2f pos, sf::Sprite sprite)
 	{
 		switch (m_color)

@@ -27,7 +27,6 @@ public:
 
 	void draw_grid(sf::RenderWindow & window);
 	void draw(sf::RenderWindow & window);
-	void draw_backround(sf::RenderWindow & window);
 	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; }
 	sf::Vector2i get_mouse() { return m_mouse; };
 	void mouse_button_released(sf::Event event, sf::RenderWindow & window);
@@ -37,7 +36,7 @@ public:
 	void mouse_moved(sf::Event event,sf::RenderWindow & window);
 	void setRead(bool state) { m_read = state; }
 	bool getRead() { return m_read; }
-	bool in_game(sf::Event event);
+	bool in_window(sf::Event event);
 
 private:
 	void save_grid();

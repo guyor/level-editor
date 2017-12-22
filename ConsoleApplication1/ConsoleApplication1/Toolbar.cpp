@@ -1,18 +1,19 @@
 
 #include "Toolbar.h"
 
-
+// toolbar c-tor
 Toolbar::Toolbar()
 {
 	for (size_t i = 0; i < NUM_OF_ICONS; i++)
 		m_positions[i] = sf::Vector2f(i *(float)P_SIZE, 0);
 }
 
-
+// toolber d-tor
 Toolbar::~Toolbar()
 {
 }
 
+// load textures  and set the sprites to the toolbar
 void Toolbar::set_toolbar()
 {
 	m_pTexture[PACMAN].loadFromFile("pacman.png");
@@ -38,12 +39,15 @@ void Toolbar::set_toolbar()
 	
 }
 
+
+// draws the toolbar
 void Toolbar::draw_toolbar(sf::RenderWindow & window)
 {
 	for (size_t i = 0; i < NUM_OF_ICONS; i++)
 		window.draw(m_sprite[i]);
 }
 
+// returns the icons name
 Toolbar_t Toolbar::get_icon_name(sf::Vector2f vec)
 {
 	for (size_t i = 0; i < NUM_OF_ICONS ; i++)

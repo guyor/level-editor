@@ -8,8 +8,10 @@
 class Pacman : public Icon
 {
 public:
+	// pacman c-tor
 	Pacman(Toolbar_t color) { m_color = color; m_shape = PACMAN; }
 	
+	// draw pacman icon
 	void draw(sf::RenderWindow &window,sf::Vector2f pos, sf::Sprite sprite)
 	{
 		switch (m_color)

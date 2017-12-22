@@ -4,8 +4,10 @@
 class Cookie : public Icon
 {
 public:
+	// cookie c-tor
 	Cookie(Toolbar_t color) { m_color = color; m_shape = COOKIE;};
 
+	// draw cookie icon
 	void draw(sf::RenderWindow& window, sf::Vector2f pos, sf::Sprite sprite)
 	{
 		switch (m_color)

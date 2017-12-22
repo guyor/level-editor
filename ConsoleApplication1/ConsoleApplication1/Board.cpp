@@ -3,7 +3,7 @@
 
 
 
-
+// board c-tor 
 Board::Board(bool read) :
 	m_read(read)
 {
@@ -11,11 +11,11 @@ Board::Board(bool read) :
 	m_new_icon._color = NONE;
 	m_moving_rect.setSize(sf::Vector2f((float)P_SIZE, (float)P_SIZE));
 	m_moving_rect.setFillColor(sf::Color::Transparent);
-//	m_pacman_placed = false;
 	read_data();
 	m_toolbar.set_toolbar();
 }
 
+// draws the grid
 void Board::draw_grid(sf::RenderWindow & window)
 {
 	float toolbar_gap = P_SIZE;
@@ -38,6 +38,7 @@ void Board::draw_grid(sf::RenderWindow & window)
 	
 }
 
+// draw all the relevent objects 
 void Board::draw(sf::RenderWindow & window)
 {
 	//draw_backround(window);
@@ -49,17 +50,7 @@ void Board::draw(sf::RenderWindow & window)
 	erase_mode ? window.draw(m_moving_rect) : window.draw(m_moving_icon);
 }
 
-void Board::draw_backround(sf::RenderWindow & window)
-{
-	sf::Texture pTexture;
-	sf::Sprite background;
-	pTexture.loadFromFile("photo.jpg");
-	background.setTexture(pTexture);
-	window.draw(background);
-}
-
-
-
+// in case the user clicked on the mouse
 void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 {
 	int x = event.mouseButton.x;
@@ -147,6 +138,7 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 	}
 }
 
+// sets the rectangle around the toolbar icons 
 void Board::setToolbarRect(sf::RectangleShape &rect,sf::Vector2f pos, sf::Color color)
 {
 	rect.setSize(sf::Vector2f((float)P_SIZE, (float)P_SIZE));
@@ -156,7 +148,7 @@ void Board::setToolbarRect(sf::RectangleShape &rect,sf::Vector2f pos, sf::Color 
 	rect.setOutlineColor(color);
 }
 
-
+// draws the icons that the user picked
 void Board::draw_icons(sf::RenderWindow & window)
 {
 	for (size_t i = 0; i < m_boardsize.x ; i++)
@@ -165,6 +157,7 @@ void Board::draw_icons(sf::RenderWindow & window)
 				m_grid[i][j]->draw(window,sf::Vector2f(((float)j)*P_SIZE,((float)(i+1))*P_SIZE), m_toolbar.get_icon_sprite(m_grid[i][j]->getShape()));
 }
 
+// in case the mouse moved
 void Board::mouse_moved(sf::Event event,sf::RenderWindow & window)
 {
 	int x = event.mouseMove.x;
@@ -211,21 +204,23 @@ void Board::mouse_moved(sf::Event event,sf::RenderWindow & window)
 	}
 }
 
-bool Board::in_game(sf::Event event)
+// checks if the cursor is in the window
+bool Board::in_window(sf::Event event)
 {
 	int x = event.mouseMove.x;
 	int y = event.mouseMove.y;
 	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
 
-	if (pos.x > P_SIZE * (m_boardsize.x - 1) || 
-		pos.y > P_SIZE * m_boardsize.y ||
-		pos.x < 0 || pos.y < 0)
+	if (x > P_SIZE * (m_boardsize.x - 1) || 
+		y > P_SIZE * m_boardsize.y ||
+		x < 0 || y < 0)
 		return false;
 
 	return true;
 }
 
 
+// saves the board to a .txt file
 void Board::save_grid()
 {
 	std::ofstream output;
@@ -262,6 +257,7 @@ void Board::save_grid()
 	}
 }
 
+// deletes all the objects from the board
 void Board::clear_grid()
 {
 	for (size_t i = 0; i < m_boardsize.x; i++)
@@ -269,6 +265,7 @@ void Board::clear_grid()
 			m_grid[i][j] = nullptr;
 }
 
+// opens the file to read
 bool Board::open_file(fstream& input)
 {
 	input.open("board.txt");
@@ -277,6 +274,7 @@ bool Board::open_file(fstream& input)
 	return true;
 }
 
+// read data for the board - from the user or the .txt file
 void Board::read_data()
 {
 	std::fstream input;
@@ -299,6 +297,7 @@ void Board::read_data()
 		read_from_usr();
 }
 
+// read data from the user
 void Board::read_from_usr()
 {
 	std::cout << "please enter number of rows ";
@@ -313,6 +312,7 @@ void Board::read_from_usr()
 	m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
 }
 
+// write the red objects to the .txt file
 void Board::write_reds(std::ofstream &output, Toolbar_t shape)
 {
 	switch (shape)
@@ -332,6 +332,7 @@ void Board::write_reds(std::ofstream &output, Toolbar_t shape)
 	}
 }
 
+// write the green objects to the .txt file
 void Board::write_greens(std::ofstream &output, Toolbar_t shape)
 {
 	switch (shape)
@@ -351,6 +352,7 @@ void Board::write_greens(std::ofstream &output, Toolbar_t shape)
 	}
 }
 
+// write the blue objects to the .txt file
 void Board::write_blues(std::ofstream &output, Toolbar_t shape)
 {
 	switch (shape)
@@ -370,6 +372,7 @@ void Board::write_blues(std::ofstream &output, Toolbar_t shape)
 	}
 }
 
+// read a char from the .txt file and save it to the board
 void Board::read_char(const char c,const size_t i, const size_t j )
 {
 	switch (c)

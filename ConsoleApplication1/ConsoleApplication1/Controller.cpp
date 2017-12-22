@@ -1,7 +1,7 @@
 
 #include "Controller.h"
 
-
+// runs the level editor
 void Controller::run()
 {
 	
@@ -29,7 +29,7 @@ void Controller::run()
 					board.mouse_button_released(event, window);
 					break;
 				case sf::Event::MouseMoved:
-					if (board.in_game(event))
+					if (board.in_window(event))
 						board.mouse_moved(event, window);
 					break;
 
