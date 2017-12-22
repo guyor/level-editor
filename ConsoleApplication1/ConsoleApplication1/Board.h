@@ -1,18 +1,14 @@
 #pragma once
 
-#include <SFML\Graphics.hpp>
 #include "Toolbar.h"
 #include "Pacman.h"
 #include "Demon.h"
 #include "Cookie.h"
 #include "Wall.h"
 #include <fstream>
-#include <string>
 #include "Icon.h"
 
 using std::fstream;
-
-using std::string;
 using std::cerr;
 
 struct Item

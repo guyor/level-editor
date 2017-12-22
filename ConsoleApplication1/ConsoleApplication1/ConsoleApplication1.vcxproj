@@ -155,7 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="Icon.cpp" />
     <ClCompile Include="Toolbar.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="main.cpp" />
