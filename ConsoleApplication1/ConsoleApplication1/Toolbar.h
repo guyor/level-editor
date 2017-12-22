@@ -8,7 +8,7 @@ using std::vector;
 enum Toolbar_t {PACMAN,DEMON,COOKIE,WALL,SAVE,ERASE,CLEAR,RED,BLUE,GREEN,NONE};
 
 const int NUM_OF_ICONS = 10;
-const unsigned int P_SIZE = 40;
+const unsigned int P_SIZE = 64;
 const int SCALE = 64;
 
 class Toolbar

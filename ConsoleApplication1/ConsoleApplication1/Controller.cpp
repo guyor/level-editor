@@ -4,36 +4,43 @@
 
 void Controller::run()
 {
-	sf::RenderWindow window(sf::VideoMode((int)m_y * P_SIZE , (int)(m_x + 1) * P_SIZE), "SFML works!");
 	
-	while (window.isOpen())
+	do
 	{
-		window.clear();
-		m_board.draw(window);
-		sf::Event event;
-		while (window.pollEvent(event))
+		m_clear = false;
+		Board board;
+		int x = board.getBoardSize().x;
+		int y = board.getBoardSize().y;
+		sf::RenderWindow window(sf::VideoMode(y * P_SIZE,(x + 1) * P_SIZE), "SFML works!");
+
+		while (window.isOpen())
 		{
-			switch(event.type)
+			window.clear();
+			board.draw(window);
+			sf::Event event;
+			while (window.pollEvent(event))
 			{
-			case sf::Event::Closed:
+				switch (event.type)
+				{
+				case sf::Event::Closed:
 					window.close();
 					break;
-			case sf::Event::MouseButtonReleased:
-				m_board.mouse_button_released(event,window);
-				break;
-			case sf::Event::MouseMoved:
-				m_board.mouse_moved(event,window);
-				
-				break;
-				
-			}
-			if (event.type == sf::Event::Closed)
-				window.close();
+				case sf::Event::MouseButtonReleased:
+					board.mouse_button_released(event, window);
+					break;
+				case sf::Event::MouseMoved:
+					board.mouse_moved(event, window);
 
+					break;
+
+				}
+				if (event.type == sf::Event::Closed)
+					window.close();
+			}
+			window.display();
 		}
-		
-		window.display();
-	}
+	} while (m_clear);
+	
 }
 
 

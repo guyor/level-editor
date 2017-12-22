@@ -96,8 +96,10 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			erase_mode = true;
 			break;
 		case CLEAR:
-			setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
-			erase_mode = true;
+			//setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
+			//erase_mode = true;
+			m_clear = true;
+			window.close();
 			clear_grid();
 			break;
 		case RED:
@@ -120,7 +122,7 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 		int y = (int)pos.x / P_SIZE;
 		if (erase_mode)
 			m_grid[x][y] = nullptr;
-		else
+		else if(m_grid[x][y] == nullptr)
 		{
 			switch (m_new_icon._shape)
 			{
@@ -169,10 +171,14 @@ void Board::mouse_moved(sf::Event event,sf::RenderWindow & window)
 	int y = event.mouseMove.y;
 
 	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
-	
+	x = ((int)pos.y / P_SIZE) - 1;
+	y = (int)pos.x / P_SIZE;
+
 	if (pos.y != 0)
 	{
-		m_moving_rect.setFillColor(sf::Color(255, 255, 255, 50));
+		m_moving_rect.setFillColor(sf::Color(255, 0, 0, 150));
+		if (m_grid[x][y] != nullptr && erase_mode)
+			m_moving_rect.setFillColor(sf::Color(0, 255, 0, 50));
 		m_moving_rect.setPosition(pos);
 		switch (m_new_icon._shape)
 		{

@@ -67,6 +67,6 @@ private:
 	bool erase_mode = true;
 	sf::Vector2f m_pacman_pos;
 	bool pacman_placed;
-	
+	bool m_clear;
 };
 
