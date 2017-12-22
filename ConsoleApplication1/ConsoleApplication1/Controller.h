@@ -12,7 +12,7 @@ public:
 	
 private:
 
-	bool m_clear;
+	bool m_read;
 	
 	
 };

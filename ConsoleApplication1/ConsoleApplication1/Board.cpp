@@ -98,7 +98,7 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 		case CLEAR:
 			//setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
 			//erase_mode = true;
-			m_clear = true;
+			m_read = false;
 			clear_grid();
 			window.close();
 			break;
@@ -266,11 +266,8 @@ bool Board::open_file(fstream& input)
 void Board::read_data()
 {
 	std::fstream input;
-	if (! m_clear)
-	{
-		read_from_usr();
-	}
-	else if(open_file(input))
+	
+	if(open_file(input) && m_read)
 	{
 		char c;
 		input >> m_boardsize.x >> m_boardsize.y;
@@ -284,6 +281,8 @@ void Board::read_data()
 				read_char(c, i, j);
 			}
 	}
+	else
+		read_from_usr();
 }
 
 void Board::read_from_usr()

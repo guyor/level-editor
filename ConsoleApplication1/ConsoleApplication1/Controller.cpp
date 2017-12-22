@@ -7,7 +7,7 @@ void Controller::run()
 	
 	do
 	{
-		m_clear = false;
+		m_read = true;
 		Board board;
 		int x = (int)board.getBoardSize().x;
 		int y = (int)board.getBoardSize().y;
@@ -39,8 +39,8 @@ void Controller::run()
 			}
 			window.display();
 		}
-		m_clear = board.getClear();
-	} while (m_clear);
+		m_read = board.getRead();
+	} while (!m_read);
 	
 }
 

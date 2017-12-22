@@ -45,8 +45,8 @@ public:
 	sf::Vector2f getBoardSize() { return m_boardsize; }
 	void draw_icons(sf::RenderWindow & window);
 	void mouse_moved(sf::Event event,sf::RenderWindow & window);
-	void setClear(bool state) { m_clear = state; }
-	bool getClear() { return m_clear; }
+	void setRead(bool state) { m_read = state; }
+	bool getRead() { return m_read; }
 
 private:
 	void save_grid();
@@ -71,6 +71,7 @@ private:
 	bool erase_mode = true;
 	sf::Vector2f m_pacman_pos;
 	bool pacman_placed;
-	bool m_clear = false;
+	bool m_read = true;;
+
 };
 
