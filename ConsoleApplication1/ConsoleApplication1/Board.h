@@ -7,7 +7,7 @@
 #include "Wall.h"
 #include <fstream>
 #include "Icon.h"
-
+#include <memory>
 using std::fstream;
 using std::cerr;
 
@@ -27,18 +27,19 @@ public:
 
 	void draw_grid(sf::RenderWindow & window);
 	void draw(sf::RenderWindow & window);
-	void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; }
+	//void set_mouse(const sf::Vector2i & new_mouse) { m_mouse = new_mouse; }
 	sf::Vector2i get_mouse() { return m_mouse; };
 	void mouse_button_released(sf::Event event, sf::RenderWindow & window);
-	void setToolbarRect(sf::RectangleShape &rect, sf::Vector2f pos, sf::Color color);
+
 	sf::Vector2f getBoardSize() { return m_boardsize; }
 	void draw_icons(sf::RenderWindow & window);
 	void mouse_moved(sf::Event event,sf::RenderWindow & window);
-	void setRead(bool state) { m_read = state; }
 	bool getRead() { return m_read; }
 	bool in_window(sf::Event event);
 
 private:
+	void setToolbarRect(sf::RectangleShape &rect, sf::Vector2f pos, sf::Color color);
+	vector< vector<int> > vec;
 	void save_grid();
 	void clear_grid();
 	bool open_file(fstream& input);
@@ -51,7 +52,7 @@ private:
 	sf::Vector2i m_mouse;
 	Toolbar m_toolbar;
 	sf::Vector2f m_boardsize;
-	vector < vector < Icon * > > m_grid;
+	vector < vector < std::unique_ptr < Icon > > > m_grid;
 	Item m_new_icon;
 	sf::RectangleShape m_shape_rect;
 	sf::RectangleShape m_color_rect;
@@ -62,6 +63,8 @@ private:
 	sf::Vector2f m_pacman_pos;
 	bool m_pacman_placed = false;
 	bool m_read;
+	void set_board();
+
 
 };
 

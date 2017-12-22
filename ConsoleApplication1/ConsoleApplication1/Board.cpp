@@ -1,8 +1,6 @@
 
 #include "Board.h"
 
-
-
 // board c-tor 
 Board::Board(bool read) :
 	m_read(read)
@@ -120,21 +118,21 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			case PACMAN:
 				if (m_pacman_placed)
 					m_grid[(int)m_pacman_pos.x][(int)m_pacman_pos.y] = nullptr;
-				m_grid[x][y] = new Pacman(m_new_icon._color);
+				m_grid[x][y] = std::make_unique < Pacman >(m_new_icon._color);
 				m_pacman_pos = sf::Vector2f((float)x,(float)y);
 				m_pacman_placed = true;
 				break;
 			case DEMON:
-				m_grid[x][y] = new Demon(m_new_icon._color);
+				m_grid[x][y] = std::make_unique < Demon > (m_new_icon._color);
 				break;
 			case COOKIE:
-				m_grid[x][y] = new Cookie(m_new_icon._color);
+				m_grid[x][y] = std::make_unique < Cookie > (m_new_icon._color);
 				break;
 			case WALL:
-				m_grid[x][y] = new Wall(m_new_icon._color);
+				m_grid[x][y] = std::make_unique < Wall > (m_new_icon._color);
 				break;
 			}
-		}	
+		}
 	}
 }
 
@@ -284,8 +282,8 @@ void Board::read_data()
 		char c;
 		input >> m_boardsize.x >> m_boardsize.y;
 		input.get();
-		m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
-
+		set_board();
+	
 		for (size_t i = 0; i < m_boardsize.x; i++)
 			for (size_t j = 0; j < m_boardsize.y + 1; j++)
 			{
@@ -309,7 +307,7 @@ void Board::read_from_usr()
 		std::cerr << "too few columns, please enter more columns\n";
 		read_from_usr();
 	}
-	m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
+	set_board();
 }
 
 // write the red objects to the .txt file
@@ -375,45 +373,53 @@ void Board::write_blues(std::ofstream &output, Toolbar_t shape)
 // read a char from the .txt file and save it to the board
 void Board::read_char(const char c,const size_t i, const size_t j )
 {
+	
 	switch (c)
 	{
 	case '#' :
-		m_grid[i][j] = new Wall(RED);
+		m_grid[i][j] = std::make_unique < Wall > (RED);
 		break;
 	case 'E' :
-		m_grid[i][j] = new Wall(GREEN);
+		m_grid[i][j] = std::make_unique < Wall > (GREEN);
 		break;
 	case 'D' :
-		m_grid[i][j] = new Wall(BLUE);
+		m_grid[i][j] = std::make_unique < Wall > (BLUE);
 		break;
 	case '*' :
-		m_grid[i][j] = new Cookie(RED);
+		m_grid[i][j] = std::make_unique < Cookie > (RED);
 		break;
 	case 'I':
-		m_grid[i][j] = new Cookie(GREEN);
+		m_grid[i][j] = std::make_unique < Cookie > (GREEN);
 		break;
 	case 'K' :
-		m_grid[i][j] = new Cookie(BLUE);
+		m_grid[i][j] = std::make_unique < Cookie > (BLUE);
 		break;
 	case '%' :
-		m_grid[i][j] = new Demon(RED);
+		m_grid[i][j] = std::make_unique < Demon > (RED);
 		break;
 	case 'T' :
-		m_grid[i][j] = new Demon(GREEN);
+		m_grid[i][j] = std::make_unique < Demon > (GREEN);
 		break;
 	case 'G' :
-		m_grid[i][j] = new Demon(BLUE);
+		m_grid[i][j] = std::make_unique < Demon > (BLUE);
 		break;
 	case '@' :
-		m_grid[i][j] = new Pacman(RED);
+		m_grid[i][j] = std::make_unique < Pacman > (RED);
 		break;
 	case 'W' :
-		m_grid[i][j] = new Pacman(GREEN);
+		m_grid[i][j] = std::make_unique < Pacman > (GREEN);
 		break;
 	case 'S' :
-		m_grid[i][j] = new Pacman(BLUE);
+		m_grid[i][j] = std::make_unique < Pacman > (BLUE);
 		break;
 	default:
 		break;
 	}
+}
+
+void Board::set_board()
+{
+	m_grid.resize((int)m_boardsize.x);
+	for (size_t i = 0; i < m_boardsize.x; i++)
+		m_grid[i].resize((int)m_boardsize.y);
 }

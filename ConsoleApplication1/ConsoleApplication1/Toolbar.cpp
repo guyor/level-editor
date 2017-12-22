@@ -33,7 +33,6 @@ void Toolbar::set_toolbar()
 		float x = m_sprite[0].getGlobalBounds().height;
 		float y = m_sprite[0].getScale().y;
 		m_sprite[i].setScale(sf::Vector2f(((float)P_SIZE / m_sprite[i].getGlobalBounds().height),((float)P_SIZE / m_sprite[i].getGlobalBounds().height)));
-
 		m_sprite[i].setPosition(m_positions[i]);
 	}
 	
