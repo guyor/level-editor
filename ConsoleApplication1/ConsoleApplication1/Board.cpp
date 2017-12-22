@@ -99,8 +99,8 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			//setToolbarRect(m_shape_rect, pos, sf::Color(0, 150, 255, 200));
 			//erase_mode = true;
 			m_clear = true;
-			window.close();
 			clear_grid();
+			window.close();
 			break;
 		case RED:
 			m_new_icon._color = RED;
@@ -128,9 +128,9 @@ void Board::mouse_button_released(sf::Event event,sf::RenderWindow &window)
 			{
 			case PACMAN:
 				if (pacman_placed)
-					m_grid[m_pacman_pos.x][m_pacman_pos.y] = nullptr;
+					m_grid[(int)m_pacman_pos.x][(int)m_pacman_pos.y] = nullptr;
 				m_grid[x][y] = new Pacman(m_new_icon._color);
-				m_pacman_pos = sf::Vector2f(x,y);
+				m_pacman_pos = sf::Vector2f((float)x,(float)y);
 				pacman_placed = true;
 				break;
 			case DEMON:
@@ -246,9 +246,6 @@ void Board::save_grid()
 		}
 		output << "\n";
 	}
-		
-			
-
 }
 
 void Board::clear_grid()
@@ -269,12 +266,16 @@ bool Board::open_file(fstream& input)
 void Board::read_data()
 {
 	std::fstream input;
-	if (open_file(input))
+	if (! m_clear)
+	{
+		read_from_usr();
+	}
+	else if(open_file(input))
 	{
 		char c;
-		input >> m_boardsize.x >> m_boardsize.y ;
+		input >> m_boardsize.x >> m_boardsize.y;
 		input.get();
-		m_grid.assign((int)m_boardsize.x,vector < Icon * >((int)m_boardsize.y, nullptr));
+		m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
 
 		for (size_t i = 0; i < m_boardsize.x; i++)
 			for (size_t j = 0; j < m_boardsize.y + 1; j++)
@@ -283,14 +284,15 @@ void Board::read_data()
 				read_char(c, i, j);
 			}
 	}
-	else
-	{
-		std::cout << "please enter number of rows ";
-		std::cin >> m_boardsize.x;
-		std::cout << "please enter number of columns ";
-		std::cin >> m_boardsize.y;
-		m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
-	}
+}
+
+void Board::read_from_usr()
+{
+	std::cout << "please enter number of rows ";
+	std::cin >> m_boardsize.x;
+	std::cout << "please enter number of columns ";
+	std::cin >> m_boardsize.y;
+	m_grid.assign((int)m_boardsize.x, vector < Icon * >((int)m_boardsize.y, nullptr));
 }
 
 void Board::write_reds(std::ofstream &output, Toolbar_t shape)

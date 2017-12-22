@@ -32,6 +32,7 @@ class Board
 {
 public:
 	Board();
+	
 	~Board() {};
 
 	void draw_grid(sf::RenderWindow & window);
@@ -44,12 +45,15 @@ public:
 	sf::Vector2f getBoardSize() { return m_boardsize; }
 	void draw_icons(sf::RenderWindow & window);
 	void mouse_moved(sf::Event event,sf::RenderWindow & window);
+	void setClear(bool state) { m_clear = state; }
+	bool getClear() { return m_clear; }
 
 private:
 	void save_grid();
 	void clear_grid();
 	bool open_file(fstream& input);
 	void read_data();
+	void read_from_usr();
 	void write_reds(std::ofstream &output,Toolbar_t shape);
 	void write_greens(std::ofstream &output, Toolbar_t shape);
 	void write_blues(std::ofstream &output, Toolbar_t shape);
@@ -67,6 +71,6 @@ private:
 	bool erase_mode = true;
 	sf::Vector2f m_pacman_pos;
 	bool pacman_placed;
-	bool m_clear;
+	bool m_clear = false;
 };
 

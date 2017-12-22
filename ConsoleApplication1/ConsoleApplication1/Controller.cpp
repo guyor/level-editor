@@ -9,8 +9,8 @@ void Controller::run()
 	{
 		m_clear = false;
 		Board board;
-		int x = board.getBoardSize().x;
-		int y = board.getBoardSize().y;
+		int x = (int)board.getBoardSize().x;
+		int y = (int)board.getBoardSize().y;
 		sf::RenderWindow window(sf::VideoMode(y * P_SIZE,(x + 1) * P_SIZE), "SFML works!");
 
 		while (window.isOpen())
@@ -39,6 +39,7 @@ void Controller::run()
 			}
 			window.display();
 		}
+		m_clear = board.getClear();
 	} while (m_clear);
 	
 }
