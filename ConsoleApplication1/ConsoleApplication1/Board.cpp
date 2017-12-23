@@ -209,8 +209,8 @@ bool Board::in_window(sf::Event event)
 	int y = event.mouseMove.y;
 	sf::Vector2f pos((float)(x - (x % P_SIZE)), (float)(y - (y % P_SIZE)));
 
-	if (x > P_SIZE * (m_boardsize.x - 1) || 
-		y > P_SIZE * m_boardsize.y ||
+	if (x > P_SIZE * m_boardsize.x || 
+		y > P_SIZE * (m_boardsize.y + 1) ||
 		x < 0 || y < 0)
 		return false;
 
